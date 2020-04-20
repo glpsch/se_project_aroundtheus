@@ -1,0 +1,17 @@
+
+
+.popup__image-src {    
+    max-width: 80vw;
+    max-height: 80vh;
+} 
+
+
+.popup__image-content {  
+    padding: 0; 
+    background-color: transparent;    
+    border-radius: 0px;    
+    width: initial;   
+  }
+
+
+  
