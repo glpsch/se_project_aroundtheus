@@ -20,13 +20,15 @@
       <div class="user-info">
         <div class="user-info__photo"></div>
         <div class="user-info__data">
-          <h1 class="user-info__name"></h1>
-          <p class="user-info__job"></p>
-          <button class="button user-info__button-edit">Edit</button>
+          <h1 class="user-info__name">Jaques Causteau</h1>
+          <p class="user-info__job">Sailor, Researcher</p>
         </div>
         <button class="button user-info__button">+</button>
       </div>
     </div>
+ 
+
+
     <div class="places-list root__section">
 
 
@@ -53,48 +55,10 @@
       </div>
     </div>
 
-    <div class="popup popup_profile">
-      <div class="popup__content">
-        <img src="./images/close.svg" alt="" class="popup__close">
-        <h3 class="popup__title">Редактировать профиль</h3>
-
-        <form class="popup__form" name="user" novalidate>
-          <div class="popup__input-container">
-            <input type="text" required minlength="2" maxlength="30" id="name"
-              class="popup__input popup__input_type_name">
-            <span class="popup__input_error" id="error-name"></span>
-          </div>
-          <div class="popup__input-container">          
-            <input type="text" required minlength="2" maxlength="30" id="info"
-              class="popup__input popup__input_type_link-url">
-            <span class="popup__input_error" id="error-info"></span>
-          </div>
-          <button type name="button" class="button popup__button popup__button_save" id="applyInfoButton">Сохранить</button>
-        </form>
-
-      </div>
-    </div>
+    
 
 <!-- ------ -->
 
-<div class="popup popup_avatar">
-  <div class="popup__content">
-    <img src="./images/close.svg" alt="" class="popup__close">
-    <h3 class="popup__title">Обновить аватар</h3>
-
-    <form class="popup__form" name="avatar" novalidate>
-     
-      <div class="popup__input-container">
-        <input type="url" required minlength="6" id="avatar_url" 
-          class="popup__input popup__input_type_link-url" placeholder="Ссылка на изображение">
-        <span class="popup__input_error" id="error-avatar_url"></span>
-      </div>
-
-      <button type name="button" class="button popup__button popup__button_save" id="applyAvatarButton">Сохранить</button>
-    </form>
-
-  </div>
-</div>
 
     <div class="popup popupImage">
       <div class="popup__content popup__image-content">
@@ -126,13 +90,8 @@
 
 
   </div>
-  <!-- <script type="module" src="./src/onError.js"></script> -->
-  <!-- <script src="./src/classSimplePopup.js"></script>
-  <script src="./src/classPopupWithForm.js"></script>
-  <script src="./src/classCard.js"></script>
-  <script src="./src/classCardList.js"></script> -->
-  <!-- <script src="./src/classUser.js" type="module"></script> -->
-  <!-- <script src="./src/classFormValidator.js"></script> -->
+
+  <!-- <script src="./src/initialCards.js" ></script>  -->
   <script src="./src/script.js" type="module"></script>
 </body>
 
