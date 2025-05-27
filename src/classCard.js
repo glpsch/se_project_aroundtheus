@@ -53,7 +53,7 @@ export default class Card {
     create() {
         let newCard = this.template.cloneNode(true);
 
-        newCard.querySelector('.place-card__image').style.backgroundImage = 'url(' + this.cardimage + ')';
+        newCard.querySelector('.place-card__image').style.backgroundImage = 'url(' + this.cardimage + ')';         
         newCard.querySelector('.place-card__name').textContent = this.cardname;
         newCard.querySelector('.place-card__like-count').textContent = this.likes.length || 0;
 
