@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Mesto</title>
+  <title>Around the U.S.</title>
   <link rel="stylesheet" href="./pages/index.css">
 </head>
 
@@ -20,8 +20,11 @@
       <div class="user-info">
         <div class="user-info__photo"></div>
         <div class="user-info__data">
-          <h1 class="user-info__name">Jaques Causteau</h1>
-          <p class="user-info__job">Sailor, Researcher</p>
+          <div class="user-info__name-container">
+            <h1 class="user-info__name">Jaques Causteau</h1>
+            <img src="./images/edit-icon.svg" alt="" class="user-info__edit-icon">
+          </div>
+          <p class="user-info__job">Explorer</p>
         </div>
         <button class="button user-info__button">+</button>
       </div>
@@ -36,20 +39,42 @@
     <div class="popup popup_add-card">
       <div class="popup__content">
         <img src="./images/close.svg" alt="" class="popup__close">
-        <h3 class="popup__title">Новое место</h3>
+        <h3 class="popup__title">New place</h3>
 
         <form class="popup__form" name="new" novalidate>
           <div class="popup__input-container">
             <input type="text" required minlength="2" maxlength="30" id="title" 
-              class="popup__input popup__input_type_title" placeholder="Название">
+              class="popup__input popup__input_type_title" placeholder="Title">
             <span class="popup__input_error" id="error-title"></span>
           </div>
           <div class="popup__input-container">
             <input type="url" required minlength="2" id="link" 
-              class="popup__input popup__input_type_link-url" placeholder="Ссылка на изображение">
+              class="popup__input popup__input_type_link-url" placeholder="Image link">
             <span class="popup__input_error" id="error-link"></span>
           </div>
           <button type name="button" id="button" class="button popup__button popup__button_add popup__button_inactive" disabled>+</button>  
+        </form>
+
+      </div>
+    </div>
+
+    <div class="popup popup_edit-user">
+      <div class="popup__content">
+        <img src="./images/close.svg" alt="" class="popup__close">
+        <h3 class="popup__title">Edit profile</h3>
+
+        <form class="popup__form" name="new" novalidate>
+          <div class="popup__input-container">
+            <input type="text" required minlength="2" maxlength="30" id="name" 
+              class="popup__input popup__input_type_name" placeholder="Name">
+            <span class="popup__input_error" id="error-name"></span>
+          </div>
+          <div class="popup__input-container">
+            <input type="text" required minlength="2" maxlength="30" id="about" 
+              class="popup__input popup__input_type_about" placeholder="About me">
+            <span class="popup__input_error" id="error-about"></span>
+          </div>
+          <button type name="button" id="button" class="button popup__button popup__button_add popup__button_inactive" disabled>Save</button>  
         </form>
 
       </div>
@@ -91,7 +116,7 @@
 
   </div>
 
-  <!-- <script src="./src/initialCards.js" ></script>  -->
+  
   <script src="./src/script.js" type="module"></script>
 </body>
 

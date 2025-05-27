@@ -1,6 +1,13 @@
 .user-info__name {
   margin: 0;
   font-weight: normal;
-  font-size: 54px;
-  line-height: 56px;
+  font-size: 42px;
+  line-height: 48px;
+}
+
+@media screen and (max-width: 980px) {
+  .user-info__name {
+    font-size: 22px;
+    line-height: 100%;
+  }
 }

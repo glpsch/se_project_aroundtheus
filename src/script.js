@@ -12,11 +12,13 @@ import { initialCards } from './initialCards.js';
 (function () {
 
     const list = document.querySelector('.places-list');
-    const newCardButton = document.querySelector('.user-info__button');
-    const popupAddCardElement = document.querySelector('.popup_add-card');
-    
+    const newCardButton = document.querySelector('.user-info__button');    
+    const popupAddCardElement = document.querySelector('.popup_add-card');    
+    const popupEditUserElement = document.querySelector('.popup_edit-user');
     const popImageElement = document.querySelector('.popupImage');
     const imgDiv = document.querySelector('.popup__image');
+
+    const editUserButton = document.querySelector('.user-info__edit-icon');
 
 
     //template
@@ -39,6 +41,11 @@ import { initialCards } from './initialCards.js';
     const popupAddCard = new PopupWithForm(popupAddCardElement);
     newCardButton.addEventListener('click', popupAddCard.open.bind(popupAddCard));
 
+    //const popupEditUser = new PopupWithForm(popupEditUserElement);
+    //editUserButton.addEventListener('click', popupEditUser.open.bind(popupEditUser));
+
+    const popupEditUser = new PopupWithForm(popupEditUserElement);
+    editUserButton.addEventListener('click', popupEditUser.open.bind(popupEditUser));
     
     const popImage = new SimplePopup(popImageElement);
 
@@ -54,10 +61,11 @@ import { initialCards } from './initialCards.js';
     //open image
     list.addEventListener('click', function (event) {
         if (event.target.classList.contains('place-card__image')) {
-            popImage.open();
+            
             let bgSrc = event.target.getAttribute('style');
             let src = bgSrc.slice(23, -3);
             imgDiv.querySelector('img').src = src;
+            popImage.open();
         }
     });
 
