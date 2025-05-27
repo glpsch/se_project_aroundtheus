@@ -3,7 +3,7 @@
     height: 24px;
 }
 
-@media screen and (max-width: 980px) {
+@media screen and (max-width: 1000px) {
     .user-info__edit-icon {
         width: 18px;
         height: 18px;

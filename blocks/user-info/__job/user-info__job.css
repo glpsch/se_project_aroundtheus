@@ -3,3 +3,18 @@
   font-size: 20px;
   line-height: 25px;
 }
+
+@media screen and (max-width: 1150px) {
+  .user-info__job {
+    font-size: 16px;
+    line-height: 100%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .user-info__job {
+    font-size: 14px;
+    line-height: 100%;
+  }
+}
+

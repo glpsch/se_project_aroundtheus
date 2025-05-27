@@ -12,7 +12,7 @@ import { initialCards } from './initialCards.js';
 (function () {
 
     const list = document.querySelector('.places-list');
-    const newCardButton = document.querySelector('.user-info__button');    
+    const newCardButton = document.querySelector('.user-info__button-place');    
     const popupAddCardElement = document.querySelector('.popup_add-card');    
     const popupEditUserElement = document.querySelector('.popup_edit-user');
     const popImageElement = document.querySelector('.popupImage');
@@ -41,8 +41,6 @@ import { initialCards } from './initialCards.js';
     const popupAddCard = new PopupWithForm(popupAddCardElement);
     newCardButton.addEventListener('click', popupAddCard.open.bind(popupAddCard));
 
-    //const popupEditUser = new PopupWithForm(popupEditUserElement);
-    //editUserButton.addEventListener('click', popupEditUser.open.bind(popupEditUser));
 
     const popupEditUser = new PopupWithForm(popupEditUserElement);
     editUserButton.addEventListener('click', popupEditUser.open.bind(popupEditUser));

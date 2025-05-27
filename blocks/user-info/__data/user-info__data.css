@@ -3,9 +3,12 @@
   margin-left: 36px;
 }
 
-@media screen and (max-width: 980px) {
+
+
+@media screen and (max-width: 1000px) {
   .user-info__data {
     margin: 20px 0;
     text-align: center;
   }
 }
+
