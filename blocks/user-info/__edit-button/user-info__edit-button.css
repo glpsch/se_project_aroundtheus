@@ -1,4 +1,4 @@
-.user-info__button-edit {
+.user-info__edit-button {
   margin-top: 24px;
   width: 38px;
   height: 18px; 
@@ -6,13 +6,9 @@
   line-height: 15px;  
 }
 
-.user-info__button-edit:hover {
-  background-color: white;
-  color: black;
-}
 
 @media screen and (max-width: 1000px) {
-  .user-info__button-edit {
+  .user-info__edit-button {
     margin: 24px auto;
   }
 }

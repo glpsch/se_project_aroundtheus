@@ -22,11 +22,11 @@
         <div class="user-info__data">
           <div class="user-info__name-container">
             <h1 class="user-info__name">Jaques Causteau</h1>
-            <img src="./images/edit-icon.svg" alt="" class="user-info__edit-icon">
+            <img src="./images/edit-icon.svg" alt="" class="button user-info__button user-info__edit-icon">
           </div>
           <p class="user-info__job">Explorer</p>
         </div>
-        <button class="button user-info__button-place">+</button>
+        <button class="button user-info__button user-info__place-button">+</button>
       </div>
     </div>
  
@@ -38,7 +38,7 @@
     </div>
     <div class="popup popup_add-card">
       <div class="popup__content">
-        <img src="./images/close.svg" alt="" class="popup__close">
+        <img src="./images/close.svg" alt="" class="popup__close button">
         <h3 class="popup__title">New place</h3>
 
         <form class="popup__form" name="new" novalidate>
@@ -60,7 +60,7 @@
 
     <div class="popup popup_edit-user">
       <div class="popup__content">
-        <img src="./images/close.svg" alt="" class="popup__close">
+        <img src="./images/close.svg" alt="" class="popup__close button">
         <h3 class="popup__title">Edit profile</h3>
 
         <form class="popup__form" name="new" novalidate>
@@ -74,7 +74,7 @@
               class="popup__input popup__input_type_about" placeholder="About me">
             <span class="popup__input_error" id="error-about"></span>
           </div>
-          <button type name="button" id="button" class="button popup__button popup__button_add popup__button_inactive" disabled>Save</button>  
+          <button type name="button" id="button" class="button popup__button popup__button_save popup__button_inactive" disabled>Save</button>  
         </form>
 
       </div>
@@ -87,7 +87,7 @@
 
     <div class="popup popupImage">
       <div class="popup__content popup__image-content">
-        <img src="./images/close.svg" alt="" class="popup__close">
+        <img src="./images/close.svg" alt="" class="popup__close button">
         <div class="popup__image">
           <img src="" alt="" class="popup__image-src">
         </div>
@@ -99,7 +99,7 @@
     <template id="place-card-template">
       <div class="place-card">
         <div class="place-card__image">
-          <button class="place-card__delete-icon"></button>
+          <button class="button place-card__delete-icon"></button>
         </div>
         <div class="place-card__description">
           <h3 class="place-card__name">Title</h3>

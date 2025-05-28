@@ -14,6 +14,7 @@
 
 .place-card__like-icon:hover {
   transform: scale(1.03);
+  opacity: 50%;
 }
 
 
