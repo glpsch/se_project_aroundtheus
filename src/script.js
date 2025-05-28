@@ -17,8 +17,9 @@ import { initialCards } from './initialCards.js';
     const popupEditUserElement = document.querySelector('.popup_edit-user');
     const popImageElement = document.querySelector('.popupImage');
     const imgDiv = document.querySelector('.popup__image');
-
     const editUserButton = document.querySelector('.user-info__edit-icon');
+
+    const popImageDescription = document.querySelector('.popup__image-description');
 
 
     //template
@@ -56,13 +57,18 @@ import { initialCards } from './initialCards.js';
 
     // Other Listeners
 
-    //open image
+    //open image popup
     list.addEventListener('click', function (event) {
         if (event.target.classList.contains('place-card__image')) {
             
             let bgSrc = event.target.getAttribute('style');
             let src = bgSrc.slice(23, -3);
-            imgDiv.querySelector('img').src = src;
+            imgDiv.querySelector('img').src = src;            
+
+            const card = event.target.closest('.place-card');
+            const cardName = card.querySelector('.place-card__name').textContent;
+            popImageDescription.textContent = cardName;
+
             popImage.open();
         }
     });

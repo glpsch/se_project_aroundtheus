@@ -3,7 +3,7 @@ export default class SimplePopup {
         this.popup = popup;
         this.popup
             .querySelector('.popup__close')
-            .addEventListener('click', this.close.bind(this));
+            .addEventListener('click', this.close.bind(this));    
 
         document
             .addEventListener('keydown', (e) => {
