@@ -8,14 +8,14 @@
 @media screen and (max-width: 1150px) {
   .user-info__name {
     font-size: 32px;
-    line-height: 100%;
+    
   }
 }
 
 @media screen and (max-width: 1050px) {
   .user-info__name {
     font-size: 26px;
-    line-height: 100%;
+    
   }
 }
 

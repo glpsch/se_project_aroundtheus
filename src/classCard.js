@@ -38,7 +38,7 @@ export default class Card {
 
     remove(event) {
 
-        if (window.confirm("Вы действительно хотите удалить эту карточку?")) {
+        if (window.confirm("Do you want to delete this card?")) {
 
             let a = event.composedPath();
             let toDelete = a[2];

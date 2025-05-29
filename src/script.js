@@ -7,8 +7,6 @@ import Card from './classCard.js';
 import CardList from './classCardList.js';
 import { initialCards } from './initialCards.js';
 
-
-
 (function () {
 
     const list = document.querySelector('.places-list');
@@ -45,7 +43,7 @@ import { initialCards } from './initialCards.js';
 
     const popupEditUser = new PopupWithForm(popupEditUserElement);
     editUserButton.addEventListener('click', popupEditUser.open.bind(popupEditUser));
-    
+
     const popImage = new SimplePopup(popImageElement);
 
    

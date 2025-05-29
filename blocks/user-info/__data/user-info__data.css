@@ -3,6 +3,11 @@
   margin-left: 36px;
 }
 
+@media screen and (max-width: 1150px) {
+  .user-info__data {
+    max-width: 400px;
+  }
+}
 
 
 @media screen and (max-width: 1000px) {

@@ -41,18 +41,16 @@
         <img src="./images/close.svg" alt="" class="popup__close button">
         <h3 class="popup__title">New place</h3>
 
-        <form class="popup__form" name="new" novalidate>
+        <form class="popup__form" name="new">
           <div class="popup__input-container">
             <input type="text" required minlength="2" maxlength="30" id="title" 
               class="popup__input popup__input_type_title" placeholder="Title">
-            <span class="popup__input_error" id="error-title"></span>
           </div>
           <div class="popup__input-container">
-            <input type="url" required minlength="2" id="link" 
+            <input type="url" id="link" 
               class="popup__input popup__input_type_link-url" placeholder="Image link">
-            <span class="popup__input_error" id="error-link"></span>
           </div>
-          <button type name="button" id="button" class="button popup__button popup__button_add popup__button_inactive" disabled>Create</button>  
+          <button type="submit" class="button popup__button popup__button_add">Create</button>  
         </form>
 
       </div>
@@ -63,20 +61,18 @@
         <img src="./images/close.svg" alt="" class="popup__close button">
         <h3 class="popup__title">Edit profile</h3>
 
-        <form class="popup__form" name="new" novalidate>
+        <form class="popup__form" name="new">
           <div class="popup__input-container">
             <input type="text" required minlength="2" maxlength="30" id="name" 
-              class="popup__input popup__input_type_name">
-            <span class="popup__input_error" id="error-name"></span>
+              class="popup__input popup__input_type_name" placeholder="Name">
           </div>
           <div class="popup__input-container">
             <input type="text" required minlength="2" maxlength="30" id="info" 
-              class="popup__input popup__input_type_about">
-            <span class="popup__input_error" id="error-about"></span>
+              class="popup__input popup__input_type_about"  placeholder="About me">
+            
           </div>
-          <button type name="button" id="button" class="button popup__button popup__button_save popup__button_inactive" disabled>Save</button>  
+          <button type="submit" class="button popup__button popup__button_save">Save</button>  
         </form>
-
       </div>
     </div>
 
