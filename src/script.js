@@ -55,9 +55,9 @@ import { initialCards } from './initialCards.js';
 
 
 
-    // Other Listeners
+    // Other Listeners:
 
-    //open image popup
+    // Open image popup
     list.addEventListener('click', function (event) {
         if (event.target.classList.contains('place-card__image')) {
             

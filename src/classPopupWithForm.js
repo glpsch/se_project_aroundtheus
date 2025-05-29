@@ -9,6 +9,9 @@ export default class PopupWithForm extends SimplePopup {
             inputBtn.classList.add('popup__button_inactive');
         }
         this.popup.classList.add('popup_is-opened');
+
+        this.popup.querySelector('#name').value = document.querySelector('.user-info__name').textContent;
+        this.popup.querySelector('#info').value = document.querySelector('.user-info__job').textContent;
     }
 
     close() {   
