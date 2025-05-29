@@ -25,15 +25,7 @@ import { initialCards } from './initialCards.js';
 
 
 
-    // initial cards
-    function AddInitialCards() {
-    initialCards.forEach(function (value) {
-        const card = new Card(cardTemplate, value.name, value.link);
-        const cardElement = card.create();
-        list.appendChild(cardElement);
-    });
-    }
-    AddInitialCards();
+
 
     // Class instances
 
@@ -48,8 +40,9 @@ import { initialCards } from './initialCards.js';
 
    
 
-    const localCardList = new CardList(list, [], popupAddCard);
-    localCardList.render();
+    const cardList = new CardList(list, initialCards, popupAddCard);
+    list.__cardList = cardList; // Store reference for PopupWithForm
+    cardList.render();
 
 
 

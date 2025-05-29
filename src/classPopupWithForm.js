@@ -41,6 +41,22 @@ export default class PopupWithForm extends SimplePopup {
             document.querySelector('.user-info__job').textContent = aboutInput.value;
                         
             this.close();
+        } else if (this.popup.classList.contains('popup_add-card')) {
+            // Handle new card form submission
+            const titleInput = this.form.querySelector('#title');
+            const linkInput = this.form.querySelector('#link');
+            
+            // Create card data
+            const cardData = {
+                name: titleInput.value,
+                link: linkInput.value
+            };
+            
+            // Add card through CardList
+            const cardList = document.querySelector('.places-list').__cardList;
+            if (cardList) {
+                cardList.addCard(cardData);
+            }
         }
     }
 }
