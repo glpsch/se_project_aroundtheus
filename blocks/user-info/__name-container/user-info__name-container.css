@@ -1,13 +1,12 @@
 .user-info__name-container {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    gap: 18px;       
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 18px;
 }
 
-
 @media screen and (max-width: 1000px) {
-    .user-info__name-container {
-        gap: 10px;
-    }
+  .user-info__name-container {
+    gap: 10px;
+  }
 }

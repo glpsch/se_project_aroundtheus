@@ -1,121 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Around the U.S.</title>
+    <link rel="stylesheet" href="./pages/index.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Around the U.S.</title>
-  <link rel="stylesheet" href="./pages/index.css">
-</head>
+  <body>
+    <div class="root">
+      <header class="header root__section">
+        <img src="./images/logo.svg" alt="Around the U.S. logo" class="logo" />
+      </header>
 
-<body>
-
-  <div class="root">
-    <header class="header root__section">
-      <img src="./images/logo.svg" alt="Around the U.S. logo" class="logo">
-    </header>
-
-    <div class="profile root__section">
-      <div class="user-info">
-        <div class="user-info__photo"></div>
-        <div class="user-info__data">
-          <div class="user-info__name-container">
-            <h1 class="user-info__name">Jaques Causteau</h1>
-            <img src="./images/edit-icon.svg" alt="Edit icon" class="button user-info__button user-info__edit-icon">
+      <div class="profile root__section">
+        <div class="user-info">
+          <div class="user-info__photo"></div>
+          <div class="user-info__data">
+            <div class="user-info__name-container">
+              <h1 class="user-info__name">Jaques Causteau</h1>
+              <img
+                src="./images/edit-icon.svg"
+                alt="Edit icon"
+                class="button user-info__button user-info__edit-icon"
+              />
+            </div>
+            <p class="user-info__job">Explorer</p>
           </div>
-          <p class="user-info__job">Explorer</p>
-        </div>
-        <button class="button user-info__button user-info__place-button">+</button>
-      </div>
-    </div>
- 
-
-
-    <div class="places-list root__section">
-
-
-    </div>
-    <div class="popup popup_add-card">
-      <div class="popup__content">
-        <img src="./images/close.svg" alt="Close icon" class="popup__close button">
-        <h3 class="popup__title">New place</h3>
-
-        <form class="popup__form" name="new">
-          <div class="popup__input-container">
-            <input type="text" required minlength="2" maxlength="30" id="title" 
-              class="popup__input popup__input_type_title" placeholder="Title">
-          </div>
-          <div class="popup__input-container">
-            <input type="url" id="link" 
-              class="popup__input popup__input_type_link-url" placeholder="Image link">
-          </div>
-          <button type="submit" class="button popup__button popup__button_add">Create</button>  
-        </form>
-
-      </div>
-    </div>
-
-    <div class="popup popup_edit-user">
-      <div class="popup__content">
-        <img src="./images/close.svg" alt="Close icon" class="popup__close button">
-        <h3 class="popup__title">Edit profile</h3>
-
-        <form class="popup__form" name="new">
-          <div class="popup__input-container">
-            <input type="text" required minlength="2" maxlength="30" id="name" 
-              class="popup__input popup__input_type_name" placeholder="Name">
-          </div>
-          <div class="popup__input-container">
-            <input type="text" required minlength="2" maxlength="30" id="info" 
-              class="popup__input popup__input_type_about"  placeholder="About me">
-            
-          </div>
-          <button type="submit" class="button popup__button popup__button_save">Save</button>  
-        </form>
-      </div>
-    </div>
-
-    
-
-<!-- ------ -->
-
-
-    <div class="popup popupImage">
-      <div class="popup__content popup__image-content">
-        <img src="./images/close.svg" alt="Close icon" class="popup__close button">
-        <div class="popup__image">
-          <img src="" alt="Popup Image" class="popup__image-src">
-        </div>  
-      
-        <p class="popup__image-description">Popup title</p>
-      </div>
-    </div>
-
-
-
-    <template id="place-card-template">
-      <div class="place-card">
-        <div class="place-card__image">
-          <button class="button place-card__delete-icon"></button>
-        </div>
-        <div class="place-card__description">
-          <h3 class="place-card__name">Title</h3>
-        <div class="place-card__like">
-          <button class="place-card__like-icon"></button>
-          <!-- <span class="place-card__like-count">0</span> -->
-        </div>
+          <button class="button user-info__button user-info__place-button">
+            +
+          </button>
         </div>
       </div>
-    </template>
 
+      <div class="places-list root__section"></div>
+      <div class="popup popup_add-card">
+        <div class="popup__content">
+          <img
+            src="./images/close.svg"
+            alt="Close icon"
+            class="popup__close button"
+          />
+          <h3 class="popup__title">New place</h3>
 
+          <form class="popup__form" name="new">
+            <div class="popup__input-container">
+              <input
+                type="text"
+                required
+                minlength="2"
+                maxlength="30"
+                id="title"
+                class="popup__input popup__input_type_title"
+                placeholder="Title"
+              />
+            </div>
+            <div class="popup__input-container">
+              <input
+                type="url"
+                id="link"
+                class="popup__input popup__input_type_link-url"
+                placeholder="Image link"
+              />
+            </div>
+            <button
+              type="submit"
+              class="button popup__button popup__button_add"
+            >
+              Create
+            </button>
+          </form>
+        </div>
+      </div>
 
+      <div class="popup popup_edit-user">
+        <div class="popup__content">
+          <img
+            src="./images/close.svg"
+            alt="Close icon"
+            class="popup__close button"
+          />
+          <h3 class="popup__title">Edit profile</h3>
 
-  </div>
+          <form class="popup__form" name="new">
+            <div class="popup__input-container">
+              <input
+                type="text"
+                required
+                minlength="2"
+                maxlength="30"
+                id="name"
+                class="popup__input popup__input_type_name"
+                placeholder="Name"
+              />
+            </div>
+            <div class="popup__input-container">
+              <input
+                type="text"
+                required
+                minlength="2"
+                maxlength="30"
+                id="info"
+                class="popup__input popup__input_type_about"
+                placeholder="About me"
+              />
+            </div>
+            <button
+              type="submit"
+              class="button popup__button popup__button_save"
+            >
+              Save
+            </button>
+          </form>
+        </div>
+      </div>
 
-  
-  <script src="./src/script.js" type="module"></script>
-</body>
+      <!-- ------ -->
 
+      <div class="popup popupImage">
+        <div class="popup__content popup__image-content">
+          <img
+            src="./images/close.svg"
+            alt="Close icon"
+            class="popup__close button"
+          />
+          <div class="popup__image">
+            <img src="" alt="Popup Image" class="popup__image-src" />
+          </div>
+
+          <p class="popup__image-description">Popup title</p>
+        </div>
+      </div>
+
+      <template id="place-card-template">
+        <div class="place-card">
+          <div class="place-card__image">
+            <button class="button place-card__delete-icon"></button>
+          </div>
+          <div class="place-card__description">
+            <h3 class="place-card__name">Title</h3>
+            <div class="place-card__like">
+              <button class="place-card__like-icon"></button>
+              <!-- <span class="place-card__like-count">0</span> -->
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <script src="./src/script.js" type="module"></script>
+  </body>
 </html>
