@@ -14,5 +14,14 @@
   .user-info__place-button {
     position: static;
     margin-bottom: 40px;
+    width: 580px;
+  }
+}
+
+@media screen and (max-width: 663px) {
+  .user-info__place-button {
+    position: static;
+    margin-bottom: 40px;
+    width: 280px;
   }
 }

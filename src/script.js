@@ -16,15 +16,11 @@ import { initialCards } from './initialCards.js';
     const popImageElement = document.querySelector('.popupImage');
     const imgDiv = document.querySelector('.popup__image');
     const editUserButton = document.querySelector('.user-info__edit-icon');
-
     const popImageDescription = document.querySelector('.popup__image-description');
 
 
     //template
-    const cardTemplate = document.querySelector('#place-card-template').content.querySelector('.place-card');
-
-
-
+    // const cardTemplate = document.querySelector('#place-card-template').content.querySelector('.place-card');
 
 
     // Class instances
