@@ -1,21 +1,43 @@
-# Project 3: Around The U.S.
 
-### Overview  
+# Around The U.S. — Interactive Photo Gallery
 
-* Intro  
-* Figma  
-* Images  
-  
-**Intro**
-  
-This project is made so all the elements are displayed correctly on popular screen sizes. We recommend investing more time in completing this project, since it's more difficult than previous ones.  
-  
-**Figma**  
-  
-* [Link to the project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)  
-  
-**Images**  
-  
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
-  
-Good luck and have fun!
+This is a front-end study project that implements an interactive photo gallery where users can explore and manage cards representing different travel destinations around the U.S.
+
+## ✨ Features
+
+* Render cards dynamically from an array using modern array methods
+* Add new cards with a title and image URL via a popup form
+* Like and delete cards interactively
+* View images in a responsive, modal popup
+* Smooth animations for opening all modals
+* Fully responsive layout without horizontal scrolling
+
+## 🛠️ Technologies & Techniques
+
+* **HTML5** and **CSS3**
+* **JavaScript (Vanilla)**
+* **BEM** methodology for CSS structure
+* **Responsive design** 
+* **DOM manipulation** 
+
+## 📸 Screenshots
+
+### Main Gallery View
+
+![Main gallery view](https://i.gyazo.com/45eeb9d35385fd57e2105da517a7c259.png)
+
+---
+
+### Add Card Popup
+
+![Add card popup modal](https://i.gyazo.com/ce268b0217c880a260ec63c8162a545c.png)
+
+## Limitations
+
+* All data (cards, likes) is stored in memory and reset on page refresh
+* No backend integration — front-end functionality only
+
+
+
+
+
