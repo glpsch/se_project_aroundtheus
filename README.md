@@ -42,4 +42,4 @@ I previously worked on a very similar project during my studies at Yandex Practi
 
 [View the project on GitHub Pages](https://glpsch.github.io/se_project_aroundtheus/)
 
-<span style="color:red"> Upd. The project has been rewritten using functional programming. The most recent code is in the without_OOP branch.</span>
+<span style="color:red"> Upd. The project has been rewritten using functional programming. </span>
