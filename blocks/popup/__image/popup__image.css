@@ -10,12 +10,9 @@
   width: initial;
 }
 
-
-
 @media screen and (max-width: 380px) {
   .popup__image-src {
     max-width: 75vw;
     max-height: 60vh;
-   
   }
 }

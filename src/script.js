@@ -32,11 +32,11 @@ function setupPopupListeners(popup) {
 function handleProfileEdit(form) {
   const nameInput = form.querySelector("#name");
   const aboutInput = form.querySelector("#info");
-  
+
   // Update profile information
   document.querySelector(".user-info__name").textContent = nameInput.value;
   document.querySelector(".user-info__job").textContent = aboutInput.value;
-  
+
   closePopup(form.closest(".popup"));
 }
 
@@ -56,13 +56,15 @@ function handleNewCard(form) {
 // Card functions
 function createCard(name, link) {
   const template = document.querySelector("#place-card-template");
-  const cardElement = template.content.querySelector(".place-card").cloneNode(true);
-  
+  const cardElement = template.content
+    .querySelector(".place-card")
+    .cloneNode(true);
+
   const cardImage = cardElement.querySelector(".place-card__image");
   cardImage.style.backgroundImage = `url(${link})`;
-  
+
   cardElement.querySelector(".place-card__name").textContent = name;
-  
+
   const deleteButton = cardElement.querySelector(".place-card__delete-icon");
   deleteButton.addEventListener("click", () => {
     cardElement.remove();
@@ -72,7 +74,7 @@ function createCard(name, link) {
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("place-card__like-icon_liked");
   });
-  
+
   return cardElement;
 }
 
@@ -83,7 +85,7 @@ function addCard(cardData) {
 
 function renderCards(cards) {
   const container = document.querySelector(".places-list");
-  cards.forEach(cardData => {
+  cards.forEach((cardData) => {
     const cardElement = createCard(cardData.name, cardData.link);
     container.appendChild(cardElement);
   });
@@ -114,21 +116,27 @@ function renderCards(cards) {
   });
 
   // Setup button listeners
-  document.querySelector(".user-info__place-button").addEventListener("click", () => {
-    openPopup(popupAddCard);
-  });
+  document
+    .querySelector(".user-info__place-button")
+    .addEventListener("click", () => {
+      openPopup(popupAddCard);
+    });
 
-  document.querySelector(".user-info__edit-icon").addEventListener("click", () => {
-    const nameInput = editForm.querySelector("#name");
-    const aboutInput = editForm.querySelector("#info");
-    nameInput.value = document.querySelector(".user-info__name").textContent;
-    aboutInput.value = document.querySelector(".user-info__job").textContent;
-    openPopup(popupEditUser);
-  });
+  document
+    .querySelector(".user-info__edit-icon")
+    .addEventListener("click", () => {
+      const nameInput = editForm.querySelector("#name");
+      const aboutInput = editForm.querySelector("#info");
+      nameInput.value = document.querySelector(".user-info__name").textContent;
+      aboutInput.value = document.querySelector(".user-info__job").textContent;
+      openPopup(popupEditUser);
+    });
 
   // Setup image popup
   const imgDiv = document.querySelector(".popup__image");
-  const popImageDescription = document.querySelector(".popup__image-description");
+  const popImageDescription = document.querySelector(
+    ".popup__image-description"
+  );
 
   document.querySelector(".places-list").addEventListener("click", (event) => {
     if (event.target.classList.contains("place-card__image")) {

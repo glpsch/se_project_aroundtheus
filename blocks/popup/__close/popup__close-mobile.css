@@ -1,6 +1,5 @@
 @media screen and (max-width: 380px) {
   .popup__close-mobile {
-   
     top: -40px;
     margin-right: 30px;
   }
