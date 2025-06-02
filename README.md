@@ -1,3 +1,7 @@
+Hi Gennadiy!
+In the code I've submitted I'm using functions and don't have classes anywhere (except for class selectors in html). Are there any other signs of OOP that I'm missing? If so, please give me an example, and I'll fix it.
+The most recent code is in the main branch of the project.
+
 # Around The U.S. — Interactive Photo Gallery
 
 This is a front-end study project that implements an interactive photo gallery where users can explore and manage cards representing different travel destinations around the U.S.
