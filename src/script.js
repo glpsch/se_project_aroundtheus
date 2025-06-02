@@ -16,7 +16,7 @@ function setupPopupListeners(popup) {
   closeButton.addEventListener("click", () => closePopup(popup));
 
   document.addEventListener("keydown", (e) => {
-    if (e.keyCode === 27) {
+    if (e.key === "Escape") {
       closePopup(popup);
     }
   });
