@@ -63,6 +63,16 @@ function createCard(name, link) {
   
   cardElement.querySelector(".place-card__name").textContent = name;
   
+  const deleteButton = cardElement.querySelector(".place-card__delete-icon");
+  deleteButton.addEventListener("click", () => {
+    cardElement.remove();
+  });
+
+  const likeButton = cardElement.querySelector(".place-card__like-icon");
+  likeButton.addEventListener("click", () => {
+    likeButton.classList.toggle("place-card__like-icon_liked");
+  });
+  
   return cardElement;
 }
 

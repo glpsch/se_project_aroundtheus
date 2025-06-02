@@ -22,10 +22,3 @@
   flex-direction: column;
 }
 
-.place-card__like-count {
-  display: block;
-  font-size: 13px;
-  line-height: 16px;
-  text-align: center;
-  margin: 3px auto;
-}
