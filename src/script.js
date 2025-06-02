@@ -12,7 +12,7 @@ import { initialCards } from "./initialCards.js";
   const newCardButton = document.querySelector(".user-info__place-button");
   const popupAddCardElement = document.querySelector(".popup_add-card");
   const popupEditUserElement = document.querySelector(".popup_edit-user");
-  const popImageElement = document.querySelector(".popupImage");
+  const popImageElement = document.querySelector(".popup_image");
   const imgDiv = document.querySelector(".popup__image");
   const editUserButton = document.querySelector(".user-info__edit-icon");
   const popImageDescription = document.querySelector(
