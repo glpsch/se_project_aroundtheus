@@ -2,6 +2,27 @@
 
 import { initialCards } from "./initialCards.js";
 
+// DOM Elements - Popups
+const popupAddCard = document.querySelector(".popup_add-card");
+const popupEditUser = document.querySelector(".popup_edit-user");
+const popupImage = document.querySelector(".popup_image");
+const imgDiv = document.querySelector(".popup__image");
+const popImageDescription = document.querySelector(".popup__image-description");
+
+// DOM Elements - Forms and Templates
+const editForm = popupEditUser.querySelector(".popup__form");
+const addCardForm = popupAddCard.querySelector(".popup__form");
+const cardTemplate = document.querySelector("#place-card-template");
+
+// DOM Elements - User Info
+const userNameElement = document.querySelector(".user-info__name");
+const userJobElement = document.querySelector(".user-info__job");
+const userEditButton = document.querySelector(".user-info__edit-icon");
+const userAddPlaceButton = document.querySelector(".user-info__place-button");
+
+// DOM Elements - Card Container
+const placesList = document.querySelector(".places-list");
+
 // Popup functions
 function openPopup(popup) {
   popup.classList.add("popup_is-opened");
@@ -34,8 +55,8 @@ function handleProfileEdit(form) {
   const aboutInput = form.querySelector("#info");
 
   // Update profile information
-  document.querySelector(".user-info__name").textContent = nameInput.value;
-  document.querySelector(".user-info__job").textContent = aboutInput.value;
+  userNameElement.textContent = nameInput.value;
+  userJobElement.textContent = aboutInput.value;
 
   closePopup(form.closest(".popup"));
 }
@@ -51,12 +72,13 @@ function handleNewCard(form) {
 
   addCard(cardData);
   closePopup(form.closest(".popup"));
+  form.querySelector("#title").value = "";
+  form.querySelector("#link").value = "";
 }
 
 // Card functions
 function createCard(name, link) {
-  const template = document.querySelector("#place-card-template");
-  const cardElement = template.content
+  const cardElement = cardTemplate.content
     .querySelector(".place-card")
     .cloneNode(true);
 
@@ -80,65 +102,49 @@ function createCard(name, link) {
 
 function addCard(cardData) {
   const cardElement = createCard(cardData.name, cardData.link);
-  document.querySelector(".places-list").prepend(cardElement);
+  placesList.prepend(cardElement);
 }
 
 function renderCards(cards) {
-  const container = document.querySelector(".places-list");
   cards.forEach((cardData) => {
     const cardElement = createCard(cardData.name, cardData.link);
-    container.appendChild(cardElement);
+    placesList.appendChild(cardElement);
   });
 }
 
 // Initialize everything
 (function () {
   // Setup popups
-  const popupAddCard = document.querySelector(".popup_add-card");
-  const popupEditUser = document.querySelector(".popup_edit-user");
-  const popupImage = document.querySelector(".popup_image");
-
   setupPopupListeners(popupAddCard);
   setupPopupListeners(popupEditUser);
   setupPopupListeners(popupImage);
 
   // Setup form submissions
-  const editForm = popupEditUser.querySelector(".popup__form");
   editForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
     handleProfileEdit(editForm);
   });
 
-  const addCardForm = popupAddCard.querySelector(".popup__form");
   addCardForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
     handleNewCard(addCardForm);
   });
 
   // Setup button listeners
-  document
-    .querySelector(".user-info__place-button")
-    .addEventListener("click", () => {
-      openPopup(popupAddCard);
-    });
+  userAddPlaceButton.addEventListener("click", () => {
+    openPopup(popupAddCard);
+  });
 
-  document
-    .querySelector(".user-info__edit-icon")
-    .addEventListener("click", () => {
-      const nameInput = editForm.querySelector("#name");
-      const aboutInput = editForm.querySelector("#info");
-      nameInput.value = document.querySelector(".user-info__name").textContent;
-      aboutInput.value = document.querySelector(".user-info__job").textContent;
-      openPopup(popupEditUser);
-    });
+  userEditButton.addEventListener("click", () => {
+    const nameInput = editForm.querySelector("#name");
+    const aboutInput = editForm.querySelector("#info");
+    nameInput.value = userNameElement.textContent;
+    aboutInput.value = userJobElement.textContent;
+    openPopup(popupEditUser);
+  });
 
   // Setup image popup
-  const imgDiv = document.querySelector(".popup__image");
-  const popImageDescription = document.querySelector(
-    ".popup__image-description"
-  );
-
-  document.querySelector(".places-list").addEventListener("click", (event) => {
+  placesList.addEventListener("click", (event) => {
     if (event.target.classList.contains("place-card__image")) {
       const bgSrc = event.target.getAttribute("style");
       const src = bgSrc.slice(23, -3);
