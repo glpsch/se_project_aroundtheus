@@ -8,9 +8,11 @@
   background-color: transparent;
   border-radius: 0px;
   width: initial;
+  position: fixed;
+  top: 90px;
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 540px) {
   .popup__image-src {
     max-width: 75vw;
     max-height: 60vh;
