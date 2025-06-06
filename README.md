@@ -1,3 +1,5 @@
+Hi Gennadiy! Thank you for the review - I'm looking into 'could be improved' comments, will start implementing them on project 6. The rest is all fixed.
+
 # Around The U.S. — Interactive Photo Gallery
 
 This is a front-end study project that implements an interactive photo gallery where users can explore and manage cards representing different travel destinations around the U.S.
@@ -42,4 +44,4 @@ I previously worked on a very similar project during my studies at Yandex Practi
 
 [View the project on GitHub Pages](https://glpsch.github.io/se_project_aroundtheus/)
 
-<span style="color:red"> Upd. The project has been rewritten using functional programming. </span>
+

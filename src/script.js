@@ -7,7 +7,9 @@ const popupAddCard = document.querySelector(".popup_add-card");
 const popupEditUser = document.querySelector(".popup_edit-user");
 const popupImage = document.querySelector(".popup_image");
 const imgDiv = popupImage.querySelector(".popup__image");
-const popImageDescription = popupImage.querySelector(".popup__image-description");
+const popImageDescription = popupImage.querySelector(
+  ".popup__image-description"
+);
 
 // DOM Elements - Forms and Templates
 const editForm = popupEditUser.querySelector(".popup__form");
