@@ -15,3 +15,9 @@
     text-align: center;
   }
 }
+
+@media screen and (max-width: 540px) {
+  .user-info__data {
+    margin: 30px 0;
+  }
+}

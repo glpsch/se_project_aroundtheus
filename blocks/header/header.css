@@ -4,3 +4,9 @@
   align-items: center;
   border-bottom: 1px solid #a5a5a5;
 }
+
+@media screen and (max-width: 540px) {
+  .header {
+    min-height: 84px;
+  }
+}
