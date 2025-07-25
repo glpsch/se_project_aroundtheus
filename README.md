@@ -1,5 +1,3 @@
-Hi Gennadiy! Thank you for the review - I'm looking into 'could be improved' comments, will start implementing them on project 6. The rest is all fixed.
-
 # Around The U.S. — Interactive Photo Gallery
 
 This is a front-end study project that implements an interactive photo gallery where users can explore and manage cards representing different travel destinations around the U.S.

@@ -44,25 +44,34 @@
           />
           <h3 class="popup__title">New place</h3>
 
-          <form class="popup__form" name="new">
+          <form class="popup__form" name="new" novalidate>
             <div class="popup__input-container">
               <input
                 type="text"
                 required
-                minlength="2"
+                minlength="1"
                 maxlength="30"
                 id="title"
+                name="title"
                 class="popup__input popup__input_type_title"
                 placeholder="Title"
+
+                title="Please fill out this field."
               />
+              <span class="popup__error" id="title-error"></span>
             </div>
             <div class="popup__input-container">
               <input
                 type="url"
+                required
                 id="link"
+                name="link"
                 class="popup__input popup__input_type_link-url"
                 placeholder="Image link"
+                pattern="https?://.+"
+                title="Please enter a web address."
               />
+              <span class="popup__error" id="link-error"></span>
             </div>
             <button
               type="submit"
@@ -83,7 +92,7 @@
           />
           <h3 class="popup__title">Edit profile</h3>
 
-          <form class="popup__form" name="new">
+          <form class="popup__form" name="new" novalidate>
             <div class="popup__input-container">
               <input
                 type="text"
@@ -91,20 +100,28 @@
                 minlength="2"
                 maxlength="30"
                 id="name"
+                name="name"
                 class="popup__input popup__input_type_name"
                 placeholder="Name"
+                
+                title="Please fill out this field."
               />
+              <span class="popup__error" id="name-error"></span>
             </div>
             <div class="popup__input-container">
               <input
                 type="text"
                 required
                 minlength="2"
-                maxlength="30"
+                maxlength="200"
                 id="info"
+                name="info"
                 class="popup__input popup__input_type_about"
                 placeholder="About me"
+                
+                title="Please fill out this field."
               />
+              <span class="popup__error" id="info-error"></span>
             </div>
             <button
               type="submit"
