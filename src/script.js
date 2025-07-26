@@ -1,6 +1,7 @@
 "use strict";
 
 import { initialCards } from "./initialCards.js";
+import { enableValidation, clearFormErrors } from "./validate.js";
 
 // DOM Elements - Popups
 const popupAddCard = document.querySelector(".popup_add-card");
@@ -32,6 +33,12 @@ function openPopup(popup) {
 
 function closePopup(popup) {
   popup.classList.remove("popup_is-opened");
+  
+  // Clear form errors when popup is closed
+  const form = popup.querySelector(".popup__form");
+  if (form) {
+    clearFormErrors(form, validationConfig);
+  }
 }
 
 function setupPopupListeners(popup) {
@@ -114,8 +121,21 @@ function renderCards(cards) {
   });
 }
 
+// Validation configuration
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible"
+};
+
 // Initialize everything
 (function () {
+  // Enable form validation
+  enableValidation(validationConfig);
+
   // Setup popups
   setupPopupListeners(popupAddCard);
   setupPopupListeners(popupEditUser);
