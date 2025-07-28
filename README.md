@@ -41,5 +41,3 @@ This is a front-end study project that implements an interactive photo gallery w
 I previously worked on a very similar project during my studies at Yandex Practicum in 2020. To create a more realistic, real-world development experience, I chose to work with legacy code by importing that project from my other repository. I then significantly reworked it to meet the current requirements. Since I joined the TripleTen course at Sprint 5, I felt this approach made more sense than starting from scratch. I hope this is acceptable and demonstrates my commitment to writing and improving my code.
 
 [View the project on GitHub Pages](https://glpsch.github.io/se_project_aroundtheus/)
-
-

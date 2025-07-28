@@ -29,42 +29,42 @@ const placesList = document.querySelector(".places-list");
 // Popup functions
 function openPopup(popup) {
   popup.classList.add("popup_is-opened");
-  
+
   // Add event listeners when popup opens
   const handleEscape = (e) => {
     if (e.key === "Escape") {
       closePopup(popup);
     }
   };
-  
+
   const handleClickOutside = (e) => {
     if (e.target.classList.contains("popup")) {
       closePopup(popup);
     }
   };
-  
+
   // Store the handlers on the popup element for later removal
   popup._escapeHandler = handleEscape;
   popup._clickOutsideHandler = handleClickOutside;
-  
+
   document.addEventListener("keydown", handleEscape);
   document.addEventListener("mousedown", handleClickOutside);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_is-opened");
-  
+
   // Remove event listeners when popup closes
   if (popup._escapeHandler) {
     document.removeEventListener("keydown", popup._escapeHandler);
     delete popup._escapeHandler;
   }
-  
+
   if (popup._clickOutsideHandler) {
     document.removeEventListener("mousedown", popup._clickOutsideHandler);
     delete popup._clickOutsideHandler;
   }
-  
+
   // Clear form errors when popup is closed
   const form = popup.querySelector(".popup__form");
   if (form) {
@@ -147,7 +147,7 @@ const validationConfig = {
   submitButtonSelector: ".popup__button",
   inactiveButtonClass: "popup__button_disabled",
   inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible"
+  errorClass: "popup__error_visible",
 };
 
 // Initialize everything
@@ -190,7 +190,7 @@ const validationConfig = {
     if (event.target.classList.contains("place-card__image")) {
       const bgSrc = event.target.getAttribute("style");
       const src = bgSrc.slice(23, -3);
-            
+
       const imgElement = imgDiv.querySelector("img");
       if (imgElement) {
         imgElement.src = src;

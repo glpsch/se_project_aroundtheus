@@ -7,20 +7,20 @@ export function enableValidation(config) {
     submitButtonSelector,
     inactiveButtonClass,
     inputErrorClass,
-    errorClass
+    errorClass,
   } = config;
 
   // Find all forms that match the selector
   const forms = document.querySelectorAll(formSelector);
 
   // Add validation to each form
-  forms.forEach(form => {
+  forms.forEach((form) => {
     setEventListeners(form, {
       inputSelector,
       submitButtonSelector,
       inactiveButtonClass,
       inputErrorClass,
-      errorClass
+      errorClass,
     });
   });
 }
@@ -32,27 +32,27 @@ function setEventListeners(form, config) {
     submitButtonSelector,
     inactiveButtonClass,
     inputErrorClass,
-    errorClass
+    errorClass,
   } = config;
 
   const inputs = form.querySelectorAll(inputSelector);
   const submitButton = form.querySelector(submitButtonSelector);
 
   // Add input event listeners
-  inputs.forEach(input => {
-    input.addEventListener('input', () => {
+  inputs.forEach((input) => {
+    input.addEventListener("input", () => {
       checkInputValidity(form, input, inputErrorClass, errorClass);
       toggleButtonState(form, submitButtonSelector, inactiveButtonClass);
     });
 
-    input.addEventListener('blur', () => {
+    input.addEventListener("blur", () => {
       checkInputValidity(form, input, inputErrorClass, errorClass);
       toggleButtonState(form, submitButtonSelector, inactiveButtonClass);
     });
   });
 
   // Add form submit listener
-  form.addEventListener('submit', (evt) => {
+  form.addEventListener("submit", (evt) => {
     evt.preventDefault();
     if (isFormValid(form, inputSelector)) {
       // Form is valid, allow submission
@@ -67,7 +67,7 @@ function setEventListeners(form, config) {
 // Check if a single input is valid and show/hide error
 function checkInputValidity(form, input, inputErrorClass, errorClass) {
   const errorElement = form.querySelector(`#${input.id}-error`);
-  
+
   if (!errorElement) return;
 
   if (input.validity.valid) {
@@ -90,21 +90,21 @@ function showInputError(input, errorElement, inputErrorClass, errorClass) {
 function hideInputError(input, errorElement, inputErrorClass, errorClass) {
   input.classList.remove(inputErrorClass);
   errorElement.classList.remove(errorClass);
-  errorElement.textContent = '';
+  errorElement.textContent = "";
 }
 
 // Check if entire form is valid
 function isFormValid(form, inputSelector) {
   const inputs = form.querySelectorAll(inputSelector);
-  return Array.from(inputs).every(input => input.validity.valid);
+  return Array.from(inputs).every((input) => input.validity.valid);
 }
 
 // Toggle button state based on form validity
 function toggleButtonState(form, submitButtonSelector, inactiveButtonClass) {
   const submitButton = form.querySelector(submitButtonSelector);
-  const inputs = form.querySelectorAll('input');
-  
-  if (isFormValid(form, 'input')) {
+  const inputs = form.querySelectorAll("input");
+
+  if (isFormValid(form, "input")) {
     // Form is valid, enable button
     submitButton.classList.remove(inactiveButtonClass);
     submitButton.disabled = false;
@@ -122,17 +122,16 @@ export function clearFormErrors(form, config) {
     //submitButtonSelector,
     //inactiveButtonClass,
     inputErrorClass,
-    errorClass
+    errorClass,
   } = config;
 
-  const inputs = form.querySelectorAll(inputSelector);  
+  const inputs = form.querySelectorAll(inputSelector);
 
   // Clear input errors
-  inputs.forEach(input => {
+  inputs.forEach((input) => {
     const errorElement = form.querySelector(`#${input.id}-error`);
     if (errorElement) {
       hideInputError(input, errorElement, inputErrorClass, errorClass);
     }
   });
-
-} 
+}
