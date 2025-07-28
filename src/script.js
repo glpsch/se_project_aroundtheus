@@ -84,7 +84,7 @@ function handleProfileEdit(form) {
   userNameElement.textContent = nameInput.value;
   userJobElement.textContent = aboutInput.value;
 
-  closePopup(form.closest(".popup"));
+  closePopup(popupEditUser);
 }
 
 function handleNewCard(form) {
@@ -97,9 +97,8 @@ function handleNewCard(form) {
   };
 
   addCard(cardData);
-  closePopup(form.closest(".popup"));
-  form.querySelector("#title").value = "";
-  form.querySelector("#link").value = "";
+  closePopup(popupAddCard);
+  form.reset();
 }
 
 // Card functions
@@ -173,6 +172,10 @@ const validationConfig = {
   // Setup button listeners
   userAddPlaceButton.addEventListener("click", () => {
     openPopup(popupAddCard);
+    // Initialize button state when popup opens
+    const submitButton = addCardForm.querySelector(".popup__button");
+    submitButton.classList.add("popup__button_disabled");
+    submitButton.disabled = true;
   });
 
   userEditButton.addEventListener("click", () => {
@@ -189,16 +192,18 @@ const validationConfig = {
       const bgSrc = event.target.getAttribute("style");
       const src = bgSrc.slice(23, -3);
 
+      const card = event.target.closest(".place-card");
+      const cardName = card.querySelector(".place-card__name").textContent;
+
       const imgElement = imgDiv.querySelector("img");
       if (imgElement) {
         imgElement.src = src;
+        imgElement.alt = cardName; 
       } else {
         // If no img element, set as background image
         imgDiv.style.backgroundImage = `url(${src})`;
       }
 
-      const card = event.target.closest(".place-card");
-      const cardName = card.querySelector(".place-card__name").textContent;
       popImageDescription.textContent = cardName;
 
       openPopup(popupImage);
