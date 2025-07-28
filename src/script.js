@@ -29,26 +29,18 @@ const placesList = document.querySelector(".places-list");
 // Popup functions
 function openPopup(popup) {
   popup.classList.add("popup_is-opened");
-
+  
   // Add event listeners when popup opens
   const handleEscape = (e) => {
     if (e.key === "Escape") {
       closePopup(popup);
     }
   };
-
-  const handleClickOutside = (e) => {
-    if (e.target.classList.contains("popup")) {
-      closePopup(popup);
-    }
-  };
-
-  // Store the handlers on the popup element for later removal
+  
+  // Store the handler on the popup element for later removal
   popup._escapeHandler = handleEscape;
-  popup._clickOutsideHandler = handleClickOutside;
-
+  
   document.addEventListener("keydown", handleEscape);
-  document.addEventListener("mousedown", handleClickOutside);
 }
 
 function closePopup(popup) {
@@ -60,11 +52,6 @@ function closePopup(popup) {
     delete popup._escapeHandler;
   }
 
-  if (popup._clickOutsideHandler) {
-    document.removeEventListener("mousedown", popup._clickOutsideHandler);
-    delete popup._clickOutsideHandler;
-  }
-
   // Clear form errors when popup is closed
   const form = popup.querySelector(".popup__form");
   if (form) {
@@ -74,7 +61,18 @@ function closePopup(popup) {
 
 function setupPopupListeners(popup) {
   const closeButton = popup.querySelector(".popup__close");
-  closeButton.addEventListener("click", () => closePopup(popup));
+  
+  // Combined click handler for both close button and overlay
+  const handleClick = (e) => {
+    if (
+      e.target.classList.contains("popup") ||
+      e.target===closeButton
+    ) {
+      closePopup(popup);
+    }
+  };
+  // Add click listener to the popup element (handles both cases)
+  popup.addEventListener("click", handleClick);
 }
 
 // Form handling functions
