@@ -1,80 +1,46 @@
 "use strict";
 
 export function enableValidation(config) {
-  const {
-    formSelector,
-    inputSelector,
-    submitButtonSelector,
-    inactiveButtonClass,
-    inputErrorClass,
-    errorClass,
-  } = config;
-
-  // Find all forms that match the selector
-  const forms = document.querySelectorAll(formSelector);
-
-  // Add validation to each form
-  forms.forEach((form) => {
-    setEventListeners(form, {
-      inputSelector,
-      submitButtonSelector,
-      inactiveButtonClass,
-      inputErrorClass,
-      errorClass,
-    });
-  });
+  const forms = document.querySelectorAll(config.formSelector);
+  forms.forEach((form) => setEventListeners(form, config));
 }
 
 // Helper function to set event listeners for a form
 function setEventListeners(form, config) {
-  const {
-    inputSelector,
-    submitButtonSelector,
-    inactiveButtonClass,
-    inputErrorClass,
-    errorClass,
-  } = config;
-
-  const inputs = form.querySelectorAll(inputSelector);
-  const submitButton = form.querySelector(submitButtonSelector);
+  const inputs = form.querySelectorAll(config.inputSelector);
 
   // Add input event listeners
   inputs.forEach((input) => {
-    input.addEventListener("input", () => {
-      checkInputValidity(form, input, inputErrorClass, errorClass);
-      toggleButtonState(form, submitButtonSelector, inactiveButtonClass);
-    });
-
-    input.addEventListener("blur", () => {
-      checkInputValidity(form, input, inputErrorClass, errorClass);
-      toggleButtonState(form, submitButtonSelector, inactiveButtonClass);
-    });
+    input.addEventListener("input", () => validateFormState(form, config));
   });
 
   // Add form submit listener
   form.addEventListener("submit", (evt) => {
     evt.preventDefault();
-    if (isFormValid(form, inputSelector)) {
-      // Form is valid, allow submission
-      return true;
-    } else {
-      // Form is invalid, prevent submission
-      return false;
-    }
+    return isFormValid(form.querySelectorAll(config.inputSelector));
   });
+}
+
+// Unified validation function
+function validateFormState(form, config) {
+  const inputs = form.querySelectorAll(config.inputSelector);
+  const submitButton = form.querySelector(config.submitButtonSelector);
+  
+  inputs.forEach((input) => {
+    checkInputValidity(form, input, config.inputErrorClass, config.errorClass);
+  });
+  
+  toggleButtonState(submitButton, inputs, config.inactiveButtonClass);
 }
 
 // Check if a single input is valid and show/hide error
 function checkInputValidity(form, input, inputErrorClass, errorClass) {
   const errorElement = form.querySelector(`#${input.id}-error`);
-
   if (!errorElement) return;
 
   if (input.validity.valid) {
-    // Input is valid
     hideInputError(input, errorElement, inputErrorClass, errorClass);
   } else {
-    // Input is invalid
     showInputError(input, errorElement, inputErrorClass, errorClass);
   }
 }
@@ -94,22 +60,18 @@ function hideInputError(input, errorElement, inputErrorClass, errorClass) {
 }
 
 // Check if entire form is valid
-function isFormValid(form, inputSelector) {
-  const inputs = form.querySelectorAll(inputSelector);
+function isFormValid(inputs) {
   return Array.from(inputs).every((input) => input.validity.valid);
 }
 
 // Toggle button state based on form validity
-function toggleButtonState(form, submitButtonSelector, inactiveButtonClass) {
-  const submitButton = form.querySelector(submitButtonSelector);
-  const inputs = form.querySelectorAll("input");
+function toggleButtonState(submitButton, inputs, inactiveButtonClass) {
+  if (!submitButton) return;
 
-  if (isFormValid(form, "input")) {
-    // Form is valid, enable button
+  if (isFormValid(inputs)) {
     submitButton.classList.remove(inactiveButtonClass);
     submitButton.disabled = false;
   } else {
-    // Form is invalid, disable button
     submitButton.classList.add(inactiveButtonClass);
     submitButton.disabled = true;
   }
@@ -117,21 +79,24 @@ function toggleButtonState(form, submitButtonSelector, inactiveButtonClass) {
 
 // Clear all errors and reset form state
 export function clearFormErrors(form, config) {
-  const {
-    inputSelector,
-    //submitButtonSelector,
-    //inactiveButtonClass,
-    inputErrorClass,
-    errorClass,
-  } = config;
-
-  const inputs = form.querySelectorAll(inputSelector);
-
-  // Clear input errors
+  const inputs = form.querySelectorAll(config.inputSelector);
+  
   inputs.forEach((input) => {
     const errorElement = form.querySelector(`#${input.id}-error`);
     if (errorElement) {
-      hideInputError(input, errorElement, inputErrorClass, errorClass);
+      hideInputError(input, errorElement, config.inputErrorClass, config.errorClass);
     }
   });
+}
+
+// Initialize form state when popup opens
+export function initializeFormState(form, config) {
+  const submitButton = form.querySelector(config.submitButtonSelector);
+  
+  if (submitButton) {
+    submitButton.classList.add(config.inactiveButtonClass);
+    submitButton.disabled = true;
+  }
+  
+  clearFormErrors(form, config);
 }

@@ -1,7 +1,7 @@
 "use strict";
 
 import { initialCards } from "./initialCards.js";
-import { enableValidation, clearFormErrors } from "./validate.js";
+import { enableValidation, clearFormErrors, initializeFormState } from "./validate.js";
 
 // DOM Elements - Popups
 const popupAddCard = document.querySelector(".popup_add-card");
@@ -173,9 +173,7 @@ const validationConfig = {
   userAddPlaceButton.addEventListener("click", () => {
     openPopup(popupAddCard);
     // Initialize button state when popup opens
-    const submitButton = addCardForm.querySelector(".popup__button");
-    submitButton.classList.add("popup__button_disabled");
-    submitButton.disabled = true;
+    initializeFormState(addCardForm, validationConfig);
   });
 
   userEditButton.addEventListener("click", () => {
