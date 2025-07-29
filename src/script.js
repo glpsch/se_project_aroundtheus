@@ -1,7 +1,11 @@
 "use strict";
 
 import { initialCards } from "./initialCards.js";
-import { enableValidation, clearFormErrors, initializeFormState } from "./validate.js";
+import {
+  enableValidation,
+  clearFormErrors,
+  initializeFormState,
+} from "./validate.js";
 
 // DOM Elements - Popups
 const popupAddCard = document.querySelector(".popup_add-card");
@@ -29,17 +33,17 @@ const placesList = document.querySelector(".places-list");
 // Popup functions
 function openPopup(popup) {
   popup.classList.add("popup_is-opened");
-  
+
   // Add event listeners when popup opens
   const handleEscape = (e) => {
     if (e.key === "Escape") {
       closePopup(popup);
     }
   };
-  
+
   // Store the handler on the popup element for later removal
   popup._escapeHandler = handleEscape;
-  
+
   document.addEventListener("keydown", handleEscape);
 }
 
@@ -61,13 +65,10 @@ function closePopup(popup) {
 
 function setupPopupListeners(popup) {
   const closeButton = popup.querySelector(".popup__close");
-  
+
   // Combined click handler for both close button and overlay
   const handleClick = (e) => {
-    if (
-      e.target.classList.contains("popup") ||
-      e.target===closeButton
-    ) {
+    if (e.target.classList.contains("popup") || e.target === closeButton) {
       closePopup(popup);
     }
   };
@@ -196,7 +197,7 @@ const validationConfig = {
       const imgElement = imgDiv.querySelector("img");
       if (imgElement) {
         imgElement.src = src;
-        imgElement.alt = cardName; 
+        imgElement.alt = cardName;
       } else {
         // If no img element, set as background image
         imgDiv.style.backgroundImage = `url(${src})`;

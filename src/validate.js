@@ -25,11 +25,11 @@ function setEventListeners(form, config) {
 function validateFormState(form, config) {
   const inputs = form.querySelectorAll(config.inputSelector);
   const submitButton = form.querySelector(config.submitButtonSelector);
-  
+
   inputs.forEach((input) => {
     checkInputValidity(form, input, config.inputErrorClass, config.errorClass);
   });
-  
+
   toggleButtonState(submitButton, inputs, config.inactiveButtonClass);
 }
 
@@ -80,11 +80,16 @@ function toggleButtonState(submitButton, inputs, inactiveButtonClass) {
 // Clear all errors and reset form state
 export function clearFormErrors(form, config) {
   const inputs = form.querySelectorAll(config.inputSelector);
-  
+
   inputs.forEach((input) => {
     const errorElement = form.querySelector(`#${input.id}-error`);
     if (errorElement) {
-      hideInputError(input, errorElement, config.inputErrorClass, config.errorClass);
+      hideInputError(
+        input,
+        errorElement,
+        config.inputErrorClass,
+        config.errorClass
+      );
     }
   });
 }
@@ -92,11 +97,11 @@ export function clearFormErrors(form, config) {
 // Initialize form state when popup opens
 export function initializeFormState(form, config) {
   const submitButton = form.querySelector(config.submitButtonSelector);
-  
+
   if (submitButton) {
     submitButton.classList.add(config.inactiveButtonClass);
     submitButton.disabled = true;
   }
-  
+
   clearFormErrors(form, config);
 }
