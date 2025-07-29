@@ -1,5 +1,3 @@
-Hi Sebastián! Thanks for the review. I got a bit carried away with restructuring validation code, but hopefully all the issues you highlighted are solved now
-
 # Around The U.S. — Interactive Photo Gallery
 
 This is a front-end study project that implements an interactive photo gallery where users can explore and manage cards representing different travel destinations around the U.S.

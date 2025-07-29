@@ -99,8 +99,8 @@ export function initializeFormState(form, config) {
   const submitButton = form.querySelector(config.submitButtonSelector);
 
   if (submitButton) {
-    submitButton.classList.add(config.inactiveButtonClass);
-    submitButton.disabled = true;
+    const inputs = form.querySelectorAll(config.inputSelector);
+    toggleButtonState(submitButton, inputs, config.inactiveButtonClass);
   }
 
   clearFormErrors(form, config);
