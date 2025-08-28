@@ -30,6 +30,89 @@ const userAddPlaceButton = document.querySelector(".user-info__place-button");
 // DOM Elements - Card Container
 const placesList = document.querySelector(".places-list");
 
+
+////////////////////////////////////////////////////////////
+const handleImageClick = (card) => {
+  const imgElement = imgDiv.querySelector("img");
+  if (imgElement) {
+    imgElement.src = card._link;
+    imgElement.alt = card._name;
+  } else {
+    // If no img element, set as background image
+    imgDiv.style.backgroundImage = `url(${card._link})`;
+  }
+
+  popImageDescription.textContent = card._name;
+  openPopup(popupImage);
+};
+
+
+class Card {
+  constructor(data, cardSelector, handleImageClick) {
+    this._name = data.name;
+    this._link = data.link;
+    this._template = cardSelector;
+    this._handleImageClick = handleImageClick;
+    this.isLiked = false;
+  }
+
+  _getTemplate() {
+    return this._template.content.querySelector('.place-card').cloneNode(true);
+  }
+
+  generateCard() {
+    this._element = this._getTemplate();
+    this._cardImageElement = this._element.querySelector('.place-card__image');
+    this._cardImageElement.style.backgroundImage = `url(${this._link})`;
+    this._element.querySelector('.place-card__name').textContent = this._name;    
+    this._setEventListeners();
+    return this._element;
+  }
+  
+  _handleLike() {
+    this.isLiked = !this.isLiked;
+    const likeButton = this._element.querySelector('.place-card__like-icon');
+    likeButton.classList.toggle('place-card__like-icon_liked');
+  }
+  
+  _handleDelete() {
+    this._element.remove();
+  }
+  
+  _setEventListeners() {
+    // Image click handler
+    this._cardImageElement.addEventListener('click', () => {
+      this._handleImageClick(this);
+    });    
+    
+    const likeButton = this._element.querySelector('.place-card__like-icon');
+    likeButton.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent event bubbling
+      this._handleLike();
+    });
+    
+    const deleteButton = this._element.querySelector('.place-card__delete-icon');
+    deleteButton.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent event bubbling
+      this._handleDelete();
+    });
+  }
+}
+
+///
+
+
+initialCards.forEach(cardData => {
+  const card = new Card(cardData, cardTemplate, handleImageClick);
+  placesList.appendChild(card.generateCard());
+});
+
+
+
+////////////////////////////////////////////////////////////
+
+
+
 // Popup functions
 function openPopup(popup) {
   popup.classList.add("popup_is-opened");
@@ -72,7 +155,7 @@ function setupPopupListeners(popup) {
       closePopup(popup);
     }
   };
-  // Add click listener to the popup element (handles both cases)
+
   popup.addEventListener("click", handleClick);
 }
 
@@ -103,39 +186,9 @@ function handleNewCard(form) {
 }
 
 // Card functions
-function createCard(name, link) {
-  const cardElement = cardTemplate.content
-    .querySelector(".place-card")
-    .cloneNode(true);
-
-  const cardImage = cardElement.querySelector(".place-card__image");
-  cardImage.style.backgroundImage = `url(${link})`;
-
-  cardElement.querySelector(".place-card__name").textContent = name;
-
-  const deleteButton = cardElement.querySelector(".place-card__delete-icon");
-  deleteButton.addEventListener("click", () => {
-    cardElement.remove();
-  });
-
-  const likeButton = cardElement.querySelector(".place-card__like-icon");
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("place-card__like-icon_liked");
-  });
-
-  return cardElement;
-}
-
 function addCard(cardData) {
-  const cardElement = createCard(cardData.name, cardData.link);
-  placesList.prepend(cardElement);
-}
-
-function renderCards(cards) {
-  cards.forEach((cardData) => {
-    const cardElement = createCard(cardData.name, cardData.link);
-    placesList.appendChild(cardElement);
-  });
+  const card = new Card(cardData, cardTemplate, handleImageClick);
+  placesList.prepend(card.generateCard());
 }
 
 // Validation configuration
@@ -185,30 +238,5 @@ const validationConfig = {
     openPopup(popupEditUser);
   });
 
-  // Setup image popup
-  placesList.addEventListener("click", (event) => {
-    if (event.target.classList.contains("place-card__image")) {
-      const bgSrc = event.target.getAttribute("style");
-      const src = bgSrc.slice(23, -3);
 
-      const card = event.target.closest(".place-card");
-      const cardName = card.querySelector(".place-card__name").textContent;
-
-      const imgElement = imgDiv.querySelector("img");
-      if (imgElement) {
-        imgElement.src = src;
-        imgElement.alt = cardName;
-      } else {
-        // If no img element, set as background image
-        imgDiv.style.backgroundImage = `url(${src})`;
-      }
-
-      popImageDescription.textContent = cardName;
-
-      openPopup(popupImage);
-    }
-  });
-
-  // Render initial cards
-  renderCards(initialCards);
 })();
