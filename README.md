@@ -19,6 +19,7 @@ This is a front-end study project that implements an interactive photo gallery w
 - **BEM** methodology for CSS structure
 - **Responsive design**
 - **DOM manipulation**
+- **OOP** (partially implemented)
 
 ## 📸 Screenshots
 

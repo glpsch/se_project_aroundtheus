@@ -27,7 +27,6 @@ const userAddPlaceButton = document.querySelector(".user-info__place-button");
 // DOM Elements - Card Container
 const placesList = document.querySelector(".places-list");
 
-
 // Handling image click
 const handleImageClick = (card) => {
   const imgElement = imgDiv.querySelector("img");
@@ -45,7 +44,7 @@ const handleImageClick = (card) => {
 
 // Card functions
 function renderInitialCards() {
-  initialCards.forEach(cardData => {
+  initialCards.forEach((cardData) => {
     const card = new Card(cardData, cardTemplate, handleImageClick);
     placesList.appendChild(card.generateCard());
   });
@@ -127,8 +126,6 @@ function handleNewCard(form) {
   form.reset();
 }
 
-
-
 // Validation configuration
 const validationConfig = {
   formSelector: ".popup__form",
@@ -189,6 +186,4 @@ const validationConfig = {
     // Clear any validation errors when popup opens
     editFormValidator.resetValidation();
   });
-
-
 })();

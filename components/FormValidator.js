@@ -4,8 +4,12 @@ export default class FormValidator {
   constructor(settings, formElement) {
     this._settings = settings;
     this._formElement = formElement;
-    this._inputs = this._formElement.querySelectorAll(this._settings.inputSelector);
-    this._submitButton = this._formElement.querySelector(this._settings.submitButtonSelector);
+    this._inputs = this._formElement.querySelectorAll(
+      this._settings.inputSelector
+    );
+    this._submitButton = this._formElement.querySelector(
+      this._settings.submitButtonSelector
+    );
   }
 
   // Private method to check field validity
@@ -77,14 +81,16 @@ export default class FormValidator {
   // Public method to enable form validation
   enableValidation() {
     this._addEventListeners();
-    this._validateFormState(); // Initial validation
+    this._validateFormState();
   }
 
   // Public method to disable button state or reset form validation
   resetValidation() {
     // Clear all errors
     this._inputs.forEach((input) => {
-      const errorElement = this._formElement.querySelector(`#${input.id}-error`);
+      const errorElement = this._formElement.querySelector(
+        `#${input.id}-error`
+      );
       if (errorElement) {
         this._hideInputError(input, errorElement);
       }
