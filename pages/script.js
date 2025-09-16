@@ -1,11 +1,7 @@
 "use strict";
 
 import { initialCards } from "../components/initialCards.js";
-import {
-  enableValidation,
-  clearFormErrors,
-  initializeFormState,
-} from "../components/validate.js";
+import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 
 // DOM Elements - Popups
@@ -46,23 +42,19 @@ const handleImageClick = (card) => {
   popImageDescription.textContent = card._name;
   openPopup(popupImage);
 };
-//////////////////////////////////////////////////////////
 
+// Card functions
+function renderInitialCards() {
+  initialCards.forEach(cardData => {
+    const card = new Card(cardData, cardTemplate, handleImageClick);
+    placesList.appendChild(card.generateCard());
+  });
+}
 
-
-///
-
-
-initialCards.forEach(cardData => {
+function addCard(cardData) {
   const card = new Card(cardData, cardTemplate, handleImageClick);
-  placesList.appendChild(card.generateCard());
-});
-
-
-
-////////////////////////////////////////////////////////////
-
-
+  placesList.prepend(card.generateCard());
+}
 
 // Popup functions
 function openPopup(popup) {
@@ -77,7 +69,6 @@ function openPopup(popup) {
 
   // Store the handler on the popup element for later removal
   popup._escapeHandler = handleEscape;
-
   document.addEventListener("keydown", handleEscape);
 }
 
@@ -92,8 +83,8 @@ function closePopup(popup) {
 
   // Clear form errors when popup is closed
   const form = popup.querySelector(".popup__form");
-  if (form) {
-    clearFormErrors(form, validationConfig);
+  if (form && form._formValidator) {
+    form._formValidator.resetValidation();
   }
 }
 
@@ -136,11 +127,7 @@ function handleNewCard(form) {
   form.reset();
 }
 
-// Card functions
-function addCard(cardData) {
-  const card = new Card(cardData, cardTemplate, handleImageClick);
-  placesList.prepend(card.generateCard());
-}
+
 
 // Validation configuration
 const validationConfig = {
@@ -155,8 +142,20 @@ const validationConfig = {
 // Initialize everything
 
 (function () {
+  // Create FormValidator instances for each form
+  const editFormValidator = new FormValidator(validationConfig, editForm);
+  const addCardFormValidator = new FormValidator(validationConfig, addCardForm);
+
+  // Store validator instances on form elements for easy access
+  editForm._formValidator = editFormValidator;
+  addCardForm._formValidator = addCardFormValidator;
+
   // Enable form validation
-  enableValidation(validationConfig);
+  editFormValidator.enableValidation();
+  addCardFormValidator.enableValidation();
+
+  // Render initial cards
+  renderInitialCards();
 
   // Setup popups
   setupPopupListeners(popupAddCard);
@@ -178,7 +177,7 @@ const validationConfig = {
   userAddPlaceButton.addEventListener("click", () => {
     openPopup(popupAddCard);
     // Initialize button state when popup opens
-    initializeFormState(addCardForm, validationConfig);
+    addCardFormValidator.resetValidation();
   });
 
   userEditButton.addEventListener("click", () => {
@@ -187,6 +186,8 @@ const validationConfig = {
     nameInput.value = userNameElement.textContent;
     aboutInput.value = userJobElement.textContent;
     openPopup(popupEditUser);
+    // Clear any validation errors when popup opens
+    editFormValidator.resetValidation();
   });
 
 
