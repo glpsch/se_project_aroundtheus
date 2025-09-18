@@ -84,6 +84,18 @@ export default class FormValidator {
     this._validateFormState();
   }
 
+  // Private method to check if all form inputs are empty
+  _isFormEmpty() {
+    return Array.from(this._inputs).every((input) => input.value === "");
+  }
+
+  // Public method to reset validation only if form is empty
+  resetValidationIfEmpty() {
+    if (this._isFormEmpty()) {
+      this.resetValidation();
+    }
+  }
+
   // Public method to disable button state or reset form validation
   resetValidation() {
     // Clear all errors

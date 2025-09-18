@@ -43,16 +43,19 @@ const handleImageClick = (card) => {
 };
 
 // Card functions
+function newCard(cardData) {
+  const card = new Card(cardData, cardTemplate, handleImageClick);
+  return card.generateCard();
+}
+
 function renderInitialCards() {
   initialCards.forEach((cardData) => {
-    const card = new Card(cardData, cardTemplate, handleImageClick);
-    placesList.appendChild(card.generateCard());
+    placesList.appendChild(newCard(cardData));
   });
 }
 
 function addCard(cardData) {
-  const card = new Card(cardData, cardTemplate, handleImageClick);
-  placesList.prepend(card.generateCard());
+  placesList.prepend(newCard(cardData));
 }
 
 // Popup functions
@@ -80,9 +83,9 @@ function closePopup(popup) {
     delete popup._escapeHandler;
   }
 
-  // Clear form errors when popup is closed
+  // Clear form errors when popup is closed (unless it's the add card form)
   const form = popup.querySelector(".popup__form");
-  if (form && form._formValidator) {
+  if (form && form._formValidator && form !== addCardForm) {
     form._formValidator.resetValidation();
   }
 }
@@ -173,8 +176,8 @@ const validationConfig = {
   // Setup button listeners
   userAddPlaceButton.addEventListener("click", () => {
     openPopup(popupAddCard);
-    // Initialize button state when popup opens
-    addCardFormValidator.resetValidation();
+    // Reset validation when popup opens only if the form is empty
+    addCardFormValidator.resetValidationIfEmpty();
   });
 
   userEditButton.addEventListener("click", () => {
