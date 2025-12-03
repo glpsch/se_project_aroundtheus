@@ -3,6 +3,7 @@
 import { initialCards } from "../components/initialCards.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
+import Section from "../components/Section.js";
 
 // DOM Elements - Popups
 const popupAddCard = document.querySelector(".popup_add-card");
@@ -42,20 +43,21 @@ const handleImageClick = (card) => {
   openPopup(popupImage);
 };
 
-// Card functions
-function newCard(cardData) {
-  const card = new Card(cardData, cardTemplate, handleImageClick);
-  return card.generateCard();
-}
-
-function renderInitialCards() {
-  initialCards.forEach((cardData) => {
-    placesList.appendChild(newCard(cardData));
-  });
-}
+// Create Section instance for cards
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: (cardData) => {
+      const card = new Card(cardData, cardTemplate, handleImageClick);
+      cardSection.addItem(card.getElement());
+    },
+  },
+  placesList
+);
 
 function addCard(cardData) {
-  placesList.prepend(newCard(cardData));
+  const card = new Card(cardData, cardTemplate, handleImageClick);
+  cardSection.prependItem(card.getElement());
 }
 
 // Popup functions
@@ -155,7 +157,7 @@ const validationConfig = {
   addCardFormValidator.enableValidation();
 
   // Render initial cards
-  renderInitialCards();
+  cardSection.renderItems();
 
   // Setup popups
   setupPopupListeners(popupAddCard);

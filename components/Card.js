@@ -6,18 +6,26 @@ export default class Card {
     this._template = cardSelector;
     this._handleImageClick = handleImageClick;
     this.isLiked = false;
+    this._element = null;
   }
 
   _getTemplate() {
     return this._template.content.querySelector(".place-card").cloneNode(true);
   }
 
-  generateCard() {
+  _generateCard() {
     this._element = this._getTemplate();
     this._cardImageElement = this._element.querySelector(".place-card__image");
     this._cardImageElement.style.backgroundImage = `url(${this._link})`;
     this._element.querySelector(".place-card__name").textContent = this._name;
     this._setEventListeners();
+    return this._element;
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._generateCard();
+    }
     return this._element;
   }
 
