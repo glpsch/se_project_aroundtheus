@@ -4,20 +4,13 @@ import { initialCards } from "../components/initialCards.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
-
-// DOM Elements - Popups
-const popupAddCard = document.querySelector(".popup_add-card");
-const popupEditUser = document.querySelector(".popup_edit-user");
-const popupImage = document.querySelector(".popup_image");
-const imgDiv = popupImage.querySelector(".popup__image");
-const popImageDescription = popupImage.querySelector(
-  ".popup__image-description"
-);
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 
 // DOM Elements - Forms and Templates
-const editForm = popupEditUser.querySelector(".popup__form");
-const addCardForm = popupAddCard.querySelector(".popup__form");
 const cardTemplate = document.querySelector("#place-card-template");
+const editForm = document.querySelector(".popup_edit-user .popup__form");
+const addCardForm = document.querySelector(".popup_add-card .popup__form");
 
 // DOM Elements - User Info
 const userNameElement = document.querySelector(".user-info__name");
@@ -27,109 +20,6 @@ const userAddPlaceButton = document.querySelector(".user-info__place-button");
 
 // DOM Elements - Card Container
 const placesList = document.querySelector(".places-list");
-
-// Handling image click
-const handleImageClick = (card) => {
-  const imgElement = imgDiv.querySelector("img");
-  if (imgElement) {
-    imgElement.src = card._link;
-    imgElement.alt = card._name;
-  } else {
-    // If no img element, set as background image
-    imgDiv.style.backgroundImage = `url(${card._link})`;
-  }
-
-  popImageDescription.textContent = card._name;
-  openPopup(popupImage);
-};
-
-// Create Section instance for cards
-const cardSection = new Section(
-  {
-    items: initialCards,
-    renderer: (cardData) => {
-      const card = new Card(cardData, cardTemplate, handleImageClick);
-      cardSection.addItem(card.getElement());
-    },
-  },
-  placesList
-);
-
-function addCard(cardData) {
-  const card = new Card(cardData, cardTemplate, handleImageClick);
-  cardSection.prependItem(card.getElement());
-}
-
-// Popup functions
-function openPopup(popup) {
-  popup.classList.add("popup_is-opened");
-
-  // Add event listeners when popup opens
-  const handleEscape = (e) => {
-    if (e.key === "Escape") {
-      closePopup(popup);
-    }
-  };
-
-  // Store the handler on the popup element for later removal
-  popup._escapeHandler = handleEscape;
-  document.addEventListener("keydown", handleEscape);
-}
-
-function closePopup(popup) {
-  popup.classList.remove("popup_is-opened");
-
-  // Remove event listeners when popup closes
-  if (popup._escapeHandler) {
-    document.removeEventListener("keydown", popup._escapeHandler);
-    delete popup._escapeHandler;
-  }
-
-  // Clear form errors when popup is closed (unless it's the add card form)
-  const form = popup.querySelector(".popup__form");
-  if (form && form._formValidator && form !== addCardForm) {
-    form._formValidator.resetValidation();
-  }
-}
-
-function setupPopupListeners(popup) {
-  const closeButton = popup.querySelector(".popup__close");
-
-  // Combined click handler for both close button and overlay
-  const handleClick = (e) => {
-    if (e.target.classList.contains("popup") || e.target === closeButton) {
-      closePopup(popup);
-    }
-  };
-
-  popup.addEventListener("click", handleClick);
-}
-
-// Form handling functions
-function handleProfileEdit(form) {
-  const nameInput = form.querySelector("#name");
-  const aboutInput = form.querySelector("#info");
-
-  // Update profile information
-  userNameElement.textContent = nameInput.value;
-  userJobElement.textContent = aboutInput.value;
-
-  closePopup(popupEditUser);
-}
-
-function handleNewCard(form) {
-  const titleInput = form.querySelector("#title");
-  const linkInput = form.querySelector("#link");
-
-  const cardData = {
-    name: titleInput.value,
-    link: linkInput.value,
-  };
-
-  addCard(cardData);
-  closePopup(popupAddCard);
-  form.reset();
-}
 
 // Validation configuration
 const validationConfig = {
@@ -142,43 +32,80 @@ const validationConfig = {
 };
 
 // Initialize everything
-
 (function () {
-  // Create FormValidator instances for each form
+  
+  const popupWithImage = new PopupWithImage(".popup_image");
+
+  
+  const handleImageClick = (card) => {
+    popupWithImage.open(card._name, card._link);
+  };
+
+  
+  const cardSection = new Section(
+    {
+      items: initialCards,
+      renderer: (cardData) => {
+        const card = new Card(cardData, cardTemplate, handleImageClick);
+        cardSection.addItem(card.getElement());
+      },
+    },
+    placesList
+  );
+
+  function addCard(cardData) {
+    const card = new Card(cardData, cardTemplate, handleImageClick);
+    cardSection.prependItem(card.getElement());
+  }
+
+  // Form handling functions
+  const handleProfileEdit = (inputValues, popup) => {
+    userNameElement.textContent = inputValues.name;
+    userJobElement.textContent = inputValues.info;
+    popup.close();
+  };
+
+  const handleNewCard = (inputValues, popup) => {
+    const cardData = {
+      name: inputValues.title,
+      link: inputValues.link,
+    };
+    addCard(cardData);
+    popup.resetForm();
+    popup.close();
+  };
+
+  // Create form popup instances
+  const popupWithEditForm = new PopupWithForm(
+    ".popup_edit-user",
+    handleProfileEdit
+  );
+  const popupWithAddCardForm = new PopupWithForm(
+    ".popup_add-card",
+    handleNewCard
+  );
+
+  // Handle validation
   const editFormValidator = new FormValidator(validationConfig, editForm);
   const addCardFormValidator = new FormValidator(validationConfig, addCardForm);
-
-  // Store validator instances on form elements for easy access
+  
   editForm._formValidator = editFormValidator;
   addCardForm._formValidator = addCardFormValidator;
-
-  // Enable form validation
+ 
   editFormValidator.enableValidation();
   addCardFormValidator.enableValidation();
 
   // Render initial cards
   cardSection.renderItems();
 
-  // Setup popups
-  setupPopupListeners(popupAddCard);
-  setupPopupListeners(popupEditUser);
-  setupPopupListeners(popupImage);
-
-  // Setup form submissions
-  editForm.addEventListener("submit", (evt) => {
-    evt.preventDefault();
-    handleProfileEdit(editForm);
-  });
-
-  addCardForm.addEventListener("submit", (evt) => {
-    evt.preventDefault();
-    handleNewCard(addCardForm);
-  });
+  // Setup popup event listeners
+  popupWithImage.setEventListeners();
+  popupWithEditForm.setEventListeners();
+  popupWithAddCardForm.setEventListeners();
 
   // Setup button listeners
   userAddPlaceButton.addEventListener("click", () => {
-    openPopup(popupAddCard);
-    // Reset validation when popup opens only if the form is empty
+    popupWithAddCardForm.open();    
     addCardFormValidator.resetValidationIfEmpty();
   });
 
@@ -187,8 +114,7 @@ const validationConfig = {
     const aboutInput = editForm.querySelector("#info");
     nameInput.value = userNameElement.textContent;
     aboutInput.value = userJobElement.textContent;
-    openPopup(popupEditUser);
-    // Clear any validation errors when popup opens
+    popupWithEditForm.open();    
     editFormValidator.resetValidation();
   });
 })();
