@@ -7,7 +7,7 @@ export default class PopupWithForm extends Popup {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
     this._form = this._popup.querySelector(".popup__form");
-    this._formData = {}; 
+    this._formData = {};
   }
 
   _getInputValues() {
@@ -41,7 +41,7 @@ export default class PopupWithForm extends Popup {
   }
 
   close() {
-    // Save form data before closing 
+    // Save form data before closing
     this._formData = this._getInputValues();
     super.close();
 
@@ -52,7 +52,6 @@ export default class PopupWithForm extends Popup {
   }
 
   resetForm() {
-    
     this._form.reset();
     this._formData = {};
     if (this._form._formValidator) {
@@ -60,4 +59,3 @@ export default class PopupWithForm extends Popup {
     }
   }
 }
-
