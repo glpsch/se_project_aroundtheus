@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Around the U.S.</title>
-    <link rel="icon" href="<%= require('./favicon.ico') %>" />
-    
+    <!-- favicon is added by HtmlWebpackPlugin -->
   </head>
 
   <body>
     <div class="root">
       <header class="header root__section">
-        <img src="<%=require('./images/logo.svg')%>" alt="Around the U.S. logo" class="logo" />
+        <img
+          src="<%=require('./images/logo.svg')%>"
+          alt="Around the U.S. logo"
+          class="logo"
+        />
       </header>
 
       <div class="profile root__section">
@@ -163,7 +166,5 @@
         </div>
       </template>
     </div>
-
-    
   </body>
 </html>
