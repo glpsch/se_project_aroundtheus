@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Around the U.S.</title>
-    <!-- <link rel="stylesheet" href="./pages/index.css" /> -->
+    <link rel="icon" href="<%= require('./favicon.ico') %>" />
+    
   </head>
 
   <body>
     <div class="root">
       <header class="header root__section">
-        <img src="./images/logo.svg" alt="Around the U.S. logo" class="logo" />
+        <img src="<%=require('./images/logo.svg')%>" alt="Around the U.S. logo" class="logo" />
       </header>
 
       <div class="profile root__section">
@@ -21,7 +22,7 @@
             <div class="user-info__name-container">
               <h1 class="user-info__name">Jaques Causteau</h1>
               <img
-                src="./images/edit-icon.svg"
+                src="<%=require('./images/edit-icon.svg')%>"
                 alt="Edit icon"
                 class="button user-info__button user-info__edit-icon"
               />
@@ -38,7 +39,7 @@
       <div class="popup popup_add-card">
         <div class="popup__content">
           <img
-            src="./images/close.svg"
+            src="<%=require('./images/close.svg')%>"
             alt="Close icon"
             class="popup__close popup__close-mobile button"
           />
@@ -83,7 +84,7 @@
       <div class="popup popup_edit-user">
         <div class="popup__content">
           <img
-            src="./images/close.svg"
+            src="<%=require('./images/close.svg')%>"
             alt="Close icon"
             class="popup__close popup__close-mobile button"
           />
@@ -131,7 +132,7 @@
       <div class="popup popup_image">
         <div class="popup__content popup__image-content">
           <img
-            src="./images/close.svg"
+            src="<%=require('./images/close.svg')%>"
             alt="Close icon"
             class="popup__close button"
           />
@@ -163,6 +164,6 @@
       </template>
     </div>
 
-    <!-- <script src="./pages/script.js" type="module"></script> -->
+    
   </body>
 </html>

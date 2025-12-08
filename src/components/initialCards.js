@@ -1,27 +1,34 @@
+import yosemiteImg from "../images/card-images/yosemite.jpg";
+import lakeLouiseImg from "../images/card-images/lake-louise.jpg";
+import baldMountainsImg from "../images/card-images/bald-mountains.jpg";
+import latemarImg from "../images/card-images/latemar.jpg";
+import vanoiseImg from "../images/card-images/vanoise.jpg";
+import lagoImg from "../images/card-images/lago.jpg";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
-    link: "./images/card-images/yosemite.jpg",
+    link: yosemiteImg,
   },
   {
     name: "Lake Louise",
-    link: "./images/card-images/lake-louise.jpg",
+    link: lakeLouiseImg,
   },
   {
     name: "Bald Mountains",
-    link: "./images/card-images/bald-mountains.jpg",
+    link: baldMountainsImg,
   },
   {
     name: "Latemar",
-    link: "./images/card-images/latemar.jpg",
+    link: latemarImg,
   },
   {
     name: "Vanoise National Park",
-    link: "./images/card-images/vanoise.jpg",
+    link: vanoiseImg,
   },
   {
     name: "Lago di Braies",
-    link: "./images/card-images/lago.jpg",
+    link: lagoImg,
   },
 ];
 
