@@ -1,6 +1,7 @@
 "use strict";
 
-import { initialCards } from "../components/initialCards.js";
+import { initialCards } from "../utils/initialCards.js";
+import { validationConfig, selectors } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
@@ -10,22 +11,12 @@ import UserInfo from "../components/UserInfo.js";
 import "./index.css";
 
 // DOM Elements
-const cardTemplate = document.querySelector("#place-card-template");
-const editForm = document.querySelector(".popup_edit-user .popup__form");
-const addCardForm = document.querySelector(".popup_add-card .popup__form");
-const userEditButton = document.querySelector(".user-info__edit-icon");
-const userAddPlaceButton = document.querySelector(".user-info__place-button");
-const placesList = document.querySelector(".places-list");
-
-// Validation configuration
-const validationConfig = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-};
+const cardTemplate = document.querySelector(selectors.cardTemplate);
+const editForm = document.querySelector(selectors.editForm);
+const addCardForm = document.querySelector(selectors.addCardForm);
+const userEditButton = document.querySelector(selectors.userEditButton);
+const userAddPlaceButton = document.querySelector(selectors.userAddPlaceButton);
+const placesList = document.querySelector(selectors.placesList);
 
 // Initialize everything
 (function () {
@@ -42,11 +33,11 @@ const validationConfig = {
   );
 
   const userInfo = new UserInfo({
-    nameSelector: ".user-info__name",
-    jobSelector: ".user-info__job",
+    nameSelector: selectors.userName,
+    jobSelector: selectors.userJob,
   });
 
-  const popupWithImage = new PopupWithImage(".popup_image");
+  const popupWithImage = new PopupWithImage(selectors.popupImage);
 
   const handleImageClick = (card) => {
     popupWithImage.open(card._name, card._link);
@@ -81,11 +72,11 @@ const validationConfig = {
 
   // Create form popup instances
   const popupWithEditForm = new PopupWithForm(
-    ".popup_edit-user",
+    selectors.popupEditUser,
     handleProfileEdit
   );
   const popupWithAddCardForm = new PopupWithForm(
-    ".popup_add-card",
+    selectors.popupAddCard,
     handleNewCard
   );
 
@@ -112,8 +103,8 @@ const validationConfig = {
 
   userEditButton.addEventListener("click", () => {
     const currentUserInfo = userInfo.getUserInfo();
-    const nameInput = editForm.querySelector("#name");
-    const aboutInput = editForm.querySelector("#info");
+    const nameInput = editForm.querySelector(selectors.nameInput);
+    const aboutInput = editForm.querySelector(selectors.infoInput);
     nameInput.value = currentUserInfo.name;
     aboutInput.value = currentUserInfo.job;
     popupWithEditForm.open();
