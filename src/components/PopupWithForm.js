@@ -1,19 +1,20 @@
 "use strict";
 
 import Popup from "./Popup.js";
+import { popupConfig } from "../utils/constants.js";
 
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, handleFormSubmit) {
     super(popupSelector);
     this._handleFormSubmit = handleFormSubmit;
-    this._form = this._popup.querySelector(".popup__form");
+    this._form = this._popup.querySelector(popupConfig.form);
+    this._inputs = this._form.querySelectorAll(popupConfig.input);
     this._formData = {};
   }
 
   _getInputValues() {
     const inputValues = {};
-    const inputs = this._form.querySelectorAll(".popup__input");
-    inputs.forEach((input) => {
+    this._inputs.forEach((input) => {
       inputValues[input.name] = input.value;
     });
     return inputValues;
@@ -30,8 +31,7 @@ export default class PopupWithForm extends Popup {
   open() {
     // Restore form data if it exists from previous close without submit
     if (Object.keys(this._formData).length > 0) {
-      const inputs = this._form.querySelectorAll(".popup__input");
-      inputs.forEach((input) => {
+      this._inputs.forEach((input) => {
         if (this._formData[input.name] !== undefined) {
           input.value = this._formData[input.name];
         }

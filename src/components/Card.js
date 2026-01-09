@@ -1,4 +1,6 @@
 "use strict";
+import { cardConfig } from "../utils/constants.js";
+
 export default class Card {
   constructor(data, cardSelector, handleImageClick) {
     this._name = data.name;
@@ -10,14 +12,18 @@ export default class Card {
   }
 
   _getTemplate() {
-    return this._template.content.querySelector(".place-card").cloneNode(true);
+    return this._template.content.querySelector(cardConfig.card).cloneNode(true);
   }
 
   _generateCard() {
     this._element = this._getTemplate();
-    this._cardImageElement = this._element.querySelector(".place-card__image");
+    this._cardImageElement = this._element.querySelector(cardConfig.cardImage);
+    this._cardNameElement = this._element.querySelector(cardConfig.cardName);
+    this._likeButton = this._element.querySelector(cardConfig.likeButton);
+    this._deleteButton = this._element.querySelector(cardConfig.deleteButton);
+    
     this._cardImageElement.style.backgroundImage = `url(${this._link})`;
-    this._element.querySelector(".place-card__name").textContent = this._name;
+    this._cardNameElement.textContent = this._name;
     this._setEventListeners();
     return this._element;
   }
@@ -31,8 +37,7 @@ export default class Card {
 
   _handleLike() {
     this.isLiked = !this.isLiked;
-    const likeButton = this._element.querySelector(".place-card__like-icon");
-    likeButton.classList.toggle("place-card__like-icon_liked");
+    this._likeButton.classList.toggle(cardConfig.likedClass);
   }
 
   _handleDelete() {
@@ -44,16 +49,12 @@ export default class Card {
       this._handleImageClick(this);
     });
 
-    const likeButton = this._element.querySelector(".place-card__like-icon");
-    likeButton.addEventListener("click", (e) => {
+    this._likeButton.addEventListener("click", (e) => {
       e.stopPropagation();
       this._handleLike();
     });
 
-    const deleteButton = this._element.querySelector(
-      ".place-card__delete-icon"
-    );
-    deleteButton.addEventListener("click", (e) => {
+    this._deleteButton.addEventListener("click", (e) => {
       e.stopPropagation();
       this._handleDelete();
     });

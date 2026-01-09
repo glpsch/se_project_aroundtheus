@@ -1,18 +1,19 @@
 "use strict";
+import { popupConfig } from "../utils/constants.js";
 
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
-    this._closeButton = this._popup.querySelector(".popup__close");
+    this._closeButton = this._popup.querySelector(popupConfig.closeButton);
   }
 
   open() {
-    this._popup.classList.add("popup_is-opened");
+    this._popup.classList.add(popupConfig.openedClass);
     document.addEventListener("keydown", this._handleEscClose);
   }
 
   close() {
-    this._popup.classList.remove("popup_is-opened");
+    this._popup.classList.remove(popupConfig.openedClass);
     document.removeEventListener("keydown", this._handleEscClose);
   }
 
