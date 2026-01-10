@@ -12,7 +12,9 @@ export default class Card {
   }
 
   _getTemplate() {
-    return this._template.content.querySelector(cardConfig.card).cloneNode(true);
+    return this._template.content
+      .querySelector(cardConfig.card)
+      .cloneNode(true);
   }
 
   _generateCard() {
@@ -21,7 +23,7 @@ export default class Card {
     this._cardNameElement = this._element.querySelector(cardConfig.cardName);
     this._likeButton = this._element.querySelector(cardConfig.likeButton);
     this._deleteButton = this._element.querySelector(cardConfig.deleteButton);
-    
+
     this._cardImageElement.style.backgroundImage = `url(${this.link})`;
     this._cardNameElement.textContent = this.name;
     this._setEventListeners();
