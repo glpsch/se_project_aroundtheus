@@ -20,13 +20,25 @@ const placesList = document.querySelector(selectors.placesList);
 
 // Initialize everything
 (function () {
-  // Class instances for UserInfo, PopupWithImage, and Section
+ 
+  const popupWithImage = new PopupWithImage(selectors.popupImage);
+
+  const handleImageClick = (card) => {
+    popupWithImage.open(card.name, card.link);
+  };
+
+  function createCard(cardData) {
+    const card = new Card(cardData, cardTemplate, handleImageClick);
+    return card.getElement();
+  }
+
+  // Create Section with cards
   const cardSection = new Section(
     {
       items: initialCards,
       renderer: (cardData) => {
-        const card = new Card(cardData, cardTemplate, handleImageClick);
-        cardSection.addItem(card.getElement());
+        const card = createCard(cardData);  
+        cardSection.addItem(card); 
       },
     },
     placesList
@@ -36,12 +48,6 @@ const placesList = document.querySelector(selectors.placesList);
     nameSelector: selectors.userName,
     jobSelector: selectors.userJob,
   });
-
-  const popupWithImage = new PopupWithImage(selectors.popupImage);
-
-  const handleImageClick = (card) => {
-    popupWithImage.open(card._name, card._link);
-  };
 
   function addCard(cardData) {
     const card = new Card(cardData, cardTemplate, handleImageClick);
@@ -103,10 +109,10 @@ const placesList = document.querySelector(selectors.placesList);
 
   userEditButton.addEventListener("click", () => {
     const currentUserInfo = userInfo.getUserInfo();
-    const nameInput = editForm.querySelector(selectors.nameInput);
-    const aboutInput = editForm.querySelector(selectors.infoInput);
-    nameInput.value = currentUserInfo.name;
-    aboutInput.value = currentUserInfo.job;
+    popupWithEditForm.setInputValues({
+      name: currentUserInfo.name,
+      info: currentUserInfo.job,
+    });
     popupWithEditForm.open();
     editFormValidator.resetValidation();
   });

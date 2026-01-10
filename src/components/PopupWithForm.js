@@ -20,6 +20,13 @@ export default class PopupWithForm extends Popup {
     return inputValues;
   }
 
+  setInputValues(data) {
+    this._inputs.forEach((input) => {
+      // Insert the value by the name of the input
+      input.value = data[input.name];
+    });
+  }
+
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener("submit", (e) => {
@@ -31,11 +38,7 @@ export default class PopupWithForm extends Popup {
   open() {
     // Restore form data if it exists from previous close without submit
     if (Object.keys(this._formData).length > 0) {
-      this._inputs.forEach((input) => {
-        if (this._formData[input.name] !== undefined) {
-          input.value = this._formData[input.name];
-        }
-      });
+      this.setInputValues(this._formData);
     }
     super.open();
   }

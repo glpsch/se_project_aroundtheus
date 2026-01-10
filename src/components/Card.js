@@ -3,8 +3,8 @@ import { cardConfig } from "../utils/constants.js";
 
 export default class Card {
   constructor(data, cardSelector, handleImageClick) {
-    this._name = data.name;
-    this._link = data.link;
+    this.name = data.name;
+    this.link = data.link;
     this._template = cardSelector;
     this._handleImageClick = handleImageClick;
     this.isLiked = false;
@@ -22,8 +22,8 @@ export default class Card {
     this._likeButton = this._element.querySelector(cardConfig.likeButton);
     this._deleteButton = this._element.querySelector(cardConfig.deleteButton);
     
-    this._cardImageElement.style.backgroundImage = `url(${this._link})`;
-    this._cardNameElement.textContent = this._name;
+    this._cardImageElement.style.backgroundImage = `url(${this.link})`;
+    this._cardNameElement.textContent = this.name;
     this._setEventListeners();
     return this._element;
   }
