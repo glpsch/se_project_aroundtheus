@@ -20,7 +20,6 @@ const placesList = document.querySelector(selectors.placesList);
 
 // Initialize everything
 (function () {
- 
   const popupWithImage = new PopupWithImage(selectors.popupImage);
 
   const handleImageClick = (card) => {
@@ -37,8 +36,8 @@ const placesList = document.querySelector(selectors.placesList);
     {
       items: initialCards,
       renderer: (cardData) => {
-        const card = createCard(cardData);  
-        cardSection.addItem(card); 
+        const card = createCard(cardData);
+        cardSection.addItem(card);
       },
     },
     placesList
