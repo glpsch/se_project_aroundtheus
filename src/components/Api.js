@@ -50,6 +50,8 @@ export default class Api {
     return this._request("/cards");
   }
 
+
+
   createCard({ name, link }) {
     return this._request("/cards", {
       method: "POST",

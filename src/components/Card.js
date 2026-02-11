@@ -44,6 +44,19 @@ export default class Card {
     this._likeButton.classList.toggle(cardConfig.likedClass);
   }
 
+  // Delete card via API and remove from DOM
+  deleteCard(api) {
+    if (!this._id) {
+      this.getElement().remove();
+      return Promise.resolve();
+    }
+    return api
+      .deleteCard(this._id)
+      .then(() => {
+        this.getElement().remove();
+      });
+  }
+
   _onDeleteClick() {
     if (this._handleDelete) {
       this._handleDelete(this);

@@ -10,6 +10,7 @@ export const selectors = {
   popupImage: ".popup_image",
   popupEditUser: ".popup_edit-user",
   popupAddCard: ".popup_add-card",
+  popupConfirmDelete: ".popup_confirm-delete",
 
   // User Info
   userName: ".user-info__name",

@@ -27,16 +27,14 @@ const placesList = document.querySelector(selectors.placesList);
   const handleImageClick = (card) => {
     popupWithImage.open(card.name, card.link);
   };
+  
+  // Remember which card to delete
+  
+  let cardToDelete = null;
 
-  const handleDeleteCard = (card) => {
-    if (!card._id) {
-      card.getElement().remove();
-      return;
-    }
-    api
-      .deleteCard(card._id)
-      .then(() => card.getElement().remove())
-      .catch(() => {});
+  const handleDeleteRequest = (card) => {
+    cardToDelete = card;
+    popupWithConfirmDelete.open();
   };
 
   function createCard(cardData) {
@@ -44,7 +42,7 @@ const placesList = document.querySelector(selectors.placesList);
       cardData,
       cardTemplate,
       handleImageClick,
-      handleDeleteCard
+      handleDeleteRequest
     );
     return card.getElement();
   }
@@ -74,6 +72,7 @@ const placesList = document.querySelector(selectors.placesList);
   // Load initial user info and cards from the server
   Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then(([userData, cards]) => {
+      //console.log(cards);
       userInfo.setUserInfo({
         name: userData.name,
         job: userData.about,
@@ -128,6 +127,22 @@ const placesList = document.querySelector(selectors.placesList);
     selectors.popupAddCard,
     handleNewCard
   );
+  const popupWithConfirmDelete = new PopupWithForm(
+    selectors.popupConfirmDelete,
+    (_inputValues, popup) => {
+      if (!cardToDelete) {
+        popup.close();
+        return;
+      }
+      cardToDelete
+        .deleteCard(api)
+        .then(() => {
+          popup.close();
+          cardToDelete = null;
+        })
+        .catch(() => {});
+    }
+  );
 
   // Handle validation
   const editFormValidator = new FormValidator(validationConfig, editForm);
@@ -143,6 +158,7 @@ const placesList = document.querySelector(selectors.placesList);
   popupWithImage.setEventListeners();
   popupWithEditForm.setEventListeners();
   popupWithAddCardForm.setEventListeners();
+  popupWithConfirmDelete.setEventListeners();
 
   // Setup button listeners
   userAddPlaceButton.addEventListener("click", () => {

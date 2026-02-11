@@ -152,6 +152,22 @@
         </div>
       </div>
 
+      <div class="popup popup_confirm-delete">
+        <div class="popup__content">
+          <img
+            src="<%=require('./images/close.svg')%>"
+            alt="Close icon"
+            class="popup__close popup__close-mobile button"
+          />
+          <h3 class="popup__title">Are you sure?</h3>
+          <form class="popup__form" name="confirm-delete">
+            <button type="submit" class="button popup__button">
+              Yes
+            </button>
+          </form>
+        </div>
+      </div>
+
       <template id="place-card-template">
         <div class="place-card">
           <div class="place-card__image">
