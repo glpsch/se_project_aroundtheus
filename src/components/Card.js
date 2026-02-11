@@ -2,11 +2,13 @@
 import { cardConfig } from "../utils/constants.js";
 
 export default class Card {
-  constructor(data, cardSelector, handleImageClick) {
+  constructor(data, cardSelector, handleImageClick, handleDelete) {
     this.name = data.name;
     this.link = data.link;
+    this._id = data._id ?? data.id;
     this._template = cardSelector;
     this._handleImageClick = handleImageClick;
+    this._handleDelete = handleDelete;
     this.isLiked = false;
     this._element = null;
   }
@@ -42,8 +44,12 @@ export default class Card {
     this._likeButton.classList.toggle(cardConfig.likedClass);
   }
 
-  _handleDelete() {
-    this._element.remove();
+  _onDeleteClick() {
+    if (this._handleDelete) {
+      this._handleDelete(this);
+    } else {
+      this._element.remove();
+    }
   }
 
   _setEventListeners() {
@@ -58,7 +64,7 @@ export default class Card {
 
     this._deleteButton.addEventListener("click", (e) => {
       e.stopPropagation();
-      this._handleDelete();
+      this._onDeleteClick();
     });
   }
 }

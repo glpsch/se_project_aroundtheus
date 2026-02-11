@@ -1,13 +1,13 @@
 "use strict";
 
-import { initialCards } from "../utils/initialCards.js";
-import { validationConfig, selectors } from "../utils/constants.js";
+import { validationConfig, selectors, apiConfig } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 import "./index.css";
 
 // DOM Elements
@@ -22,22 +22,40 @@ const placesList = document.querySelector(selectors.placesList);
 (function () {
   const popupWithImage = new PopupWithImage(selectors.popupImage);
 
+  const api = new Api(apiConfig);
+
   const handleImageClick = (card) => {
     popupWithImage.open(card.name, card.link);
   };
 
+  const handleDeleteCard = (card) => {
+    if (!card._id) {
+      card.getElement().remove();
+      return;
+    }
+    api
+      .deleteCard(card._id)
+      .then(() => card.getElement().remove())
+      .catch(() => {});
+  };
+
   function createCard(cardData) {
-    const card = new Card(cardData, cardTemplate, handleImageClick);
+    const card = new Card(
+      cardData,
+      cardTemplate,
+      handleImageClick,
+      handleDeleteCard
+    );
     return card.getElement();
   }
 
   // Create Section with cards
   const cardSection = new Section(
     {
-      items: initialCards,
+      items: [],
       renderer: (cardData) => {
-        const card = createCard(cardData);
-        cardSection.addItem(card);
+        const cardElement = createCard(cardData);
+        cardSection.addItem(cardElement);
       },
     },
     placesList
@@ -49,20 +67,40 @@ const placesList = document.querySelector(selectors.placesList);
   });
 
   function addCard(cardData) {
-    const card = createCard(cardData);
-    cardSection.prependItem(card.getElement());
+    const cardElement = createCard(cardData);
+    cardSection.prependItem(cardElement);
   }
 
-  // Render initial cards
-  cardSection.renderItems();
+  // Load initial user info and cards from the server
+  Promise.all([api.getUserInfo(), api.getInitialCards()])
+    .then(([userData, cards]) => {
+      userInfo.setUserInfo({
+        name: userData.name,
+        job: userData.about,
+      });
+
+      cards.forEach((cardData) => {
+        const cardElement = createCard(cardData);
+        cardSection.addItem(cardElement);
+      });
+    })
+    .catch(() => {});
 
   // Form handling functions
   const handleProfileEdit = (inputValues, popup) => {
-    userInfo.setUserInfo({
-      name: inputValues.name,
-      job: inputValues.info,
-    });
-    popup.close();
+    api
+      .updateUserInfo({
+        name: inputValues.name,
+        about: inputValues.info,
+      })
+      .then((updatedUser) => {
+        userInfo.setUserInfo({
+          name: updatedUser.name,
+          job: updatedUser.about,
+        });
+        popup.close();
+      })
+      .catch(() => {});
   };
 
   const handleNewCard = (inputValues, popup) => {
@@ -70,9 +108,15 @@ const placesList = document.querySelector(selectors.placesList);
       name: inputValues.title,
       link: inputValues.link,
     };
-    addCard(cardData);
-    popup.resetForm();
-    popup.close();
+
+    api
+      .createCard(cardData)
+      .then((newCard) => {
+        addCard(newCard);
+        popup.resetForm();
+        popup.close();
+      })
+      .catch(() => {});
   };
 
   // Create form popup instances
@@ -115,4 +159,6 @@ const placesList = document.querySelector(selectors.placesList);
     popupWithEditForm.open();
     editFormValidator.resetValidation();
   });
+
+
 })();
