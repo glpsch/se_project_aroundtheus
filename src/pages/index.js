@@ -160,5 +160,15 @@ const placesList = document.querySelector(selectors.placesList);
     editFormValidator.resetValidation();
   });
 
+    // One-time avatar update 
+    const avatarUrl =
+    "https://avatars.githubusercontent.com/u/60449583?v=4";
+  api
+    .updateAvatar({ avatar: avatarUrl })
+    .then((user) => {
+      document.querySelector(".user-info__photo").style.backgroundImage =
+        `url(${user.avatar})`;
+    })
+    .catch(() => {});
 
 })();
