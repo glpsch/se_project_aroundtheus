@@ -29,7 +29,7 @@ const placesList = document.querySelector(selectors.placesList);
   };
   
   // Remember which card to delete
-  
+
   let cardToDelete = null;
 
   const handleDeleteRequest = (card) => {
@@ -42,7 +42,8 @@ const placesList = document.querySelector(selectors.placesList);
       cardData,
       cardTemplate,
       handleImageClick,
-      handleDeleteRequest
+      handleDeleteRequest,
+      api
     );
     return card.getElement();
   }

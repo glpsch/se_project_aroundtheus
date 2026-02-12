@@ -2,14 +2,16 @@
 import { cardConfig } from "../utils/constants.js";
 
 export default class Card {
-  constructor(data, cardSelector, handleImageClick, handleDelete) {
+  constructor(data, cardSelector, handleImageClick, handleDelete, api) {
     this.name = data.name;
     this.link = data.link;
     this._id = data._id ?? data.id;
     this._template = cardSelector;
     this._handleImageClick = handleImageClick;
     this._handleDelete = handleDelete;
-    this.isLiked = false;
+    this._api = api;
+    
+    this.isLiked = Boolean(data.isLiked);
     this._element = null;
   }
 
@@ -28,6 +30,9 @@ export default class Card {
 
     this._cardImageElement.style.backgroundImage = `url(${this.link})`;
     this._cardNameElement.textContent = this.name;
+    if (this.isLiked) {
+      this._likeButton.classList.add(cardConfig.likedClass);
+    }
     this._setEventListeners();
     return this._element;
   }
@@ -40,21 +45,20 @@ export default class Card {
   }
 
   _handleLike() {
-    this.isLiked = !this.isLiked;
-    this._likeButton.classList.toggle(cardConfig.likedClass);
+    const likeStatus = !this.isLiked;
+    this._api
+      .changeLikeStatus(this._id, likeStatus)
+      .then(() => {
+        this.isLiked = likeStatus;
+        this._likeButton.classList.toggle(cardConfig.likedClass);
+      })
+      .catch(() => {});
   }
 
-  // Delete card via API and remove from DOM
   deleteCard(api) {
-    if (!this._id) {
-      this.getElement().remove();
-      return Promise.resolve();
-    }
     return api
       .deleteCard(this._id)
-      .then(() => {
-        this.getElement().remove();
-      });
+      .then(() => this.getElement().remove());
   }
 
   _onDeleteClick() {
