@@ -20,7 +20,14 @@
 
       <div class="profile root__section">
         <div class="user-info">
-          <div class="user-info__photo"></div>
+          <div class="user-info__photo">
+            <div class="user-info__photo-overlay">
+              <img
+                src="<%=require('./images/edit-avatar.svg')%>"
+              alt="Edit profile picture"
+              class="button user-info__edit-avatar"
+            /></div>
+          </div>
           <div class="user-info__data">
             <div class="user-info__name-container">
               <h1 class="user-info__name">Jaques Causteau</h1>
@@ -123,6 +130,38 @@
             <button
               type="submit"
               class="button popup__button popup__button_save"
+            >
+              Save
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="popup popup_edit-avatar">
+        <div class="popup__content">
+          <img
+            src="<%=require('./images/close.svg')%>"
+            alt="Close icon"
+            class="popup__close popup__close-mobile button"
+          />
+          <h3 class="popup__title">Change profile picture</h3>
+
+          <form class="popup__form" name="new">
+            <div class="popup__input-container">
+              <input
+                type="url"
+                required
+                id="link"
+                name="link"
+                class="popup__input popup__input_type_link-url"
+                placeholder="Image link"
+                pattern="https?://.+"
+              />
+              <span class="popup__error" id="link-error"></span>
+            </div>
+            <button
+              type="submit"
+              class="button popup__button popup__button_add"
             >
               Save
             </button>

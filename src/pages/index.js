@@ -14,8 +14,12 @@ import "./index.css";
 const cardTemplate = document.querySelector(selectors.cardTemplate);
 const editForm = document.querySelector(selectors.editForm);
 const addCardForm = document.querySelector(selectors.addCardForm);
+const avatarForm = document.querySelector(selectors.avatarForm);
 const userEditButton = document.querySelector(selectors.userEditButton);
 const userAddPlaceButton = document.querySelector(selectors.userAddPlaceButton);
+const userEditAvatarButton = document.querySelector(
+  selectors.userEditAvatarButton
+);
 const placesList = document.querySelector(selectors.placesList);
 
 // Initialize everything
@@ -63,6 +67,7 @@ const placesList = document.querySelector(selectors.placesList);
   const userInfo = new UserInfo({
     nameSelector: selectors.userName,
     jobSelector: selectors.userJob,
+    avatarSelector: selectors.userAvatar,
   });
 
   function addCard(cardData) {
@@ -77,6 +82,7 @@ const placesList = document.querySelector(selectors.placesList);
       userInfo.setUserInfo({
         name: userData.name,
         job: userData.about,
+        avatar: userData.avatar,
       });
 
       cards.forEach((cardData) => {
@@ -97,7 +103,25 @@ const placesList = document.querySelector(selectors.placesList);
         userInfo.setUserInfo({
           name: updatedUser.name,
           job: updatedUser.about,
+          avatar: updatedUser.avatar,
         });
+        popup.close();
+      })
+      .catch(() => {});
+  };
+
+  const handleAvatarEdit = (inputValues, popup) => {
+    api
+      .updateAvatar({
+        avatar: inputValues.link,
+      })
+      .then((updatedUser) => {
+        userInfo.setUserInfo({
+          name: updatedUser.name,
+          job: updatedUser.about,
+          avatar: updatedUser.avatar,
+        });
+        popup.resetForm();
         popup.close();
       })
       .catch(() => {});
@@ -128,6 +152,10 @@ const placesList = document.querySelector(selectors.placesList);
     selectors.popupAddCard,
     handleNewCard
   );
+  const popupWithAvatarForm = new PopupWithForm(
+    selectors.popupEditAvatar,
+    handleAvatarEdit
+  );
   const popupWithConfirmDelete = new PopupWithForm(
     selectors.popupConfirmDelete,
     (_inputValues, popup) => {
@@ -148,17 +176,21 @@ const placesList = document.querySelector(selectors.placesList);
   // Handle validation
   const editFormValidator = new FormValidator(validationConfig, editForm);
   const addCardFormValidator = new FormValidator(validationConfig, addCardForm);
+  const avatarFormValidator = new FormValidator(validationConfig, avatarForm);
 
   editForm._formValidator = editFormValidator;
   addCardForm._formValidator = addCardFormValidator;
+  avatarForm._formValidator = avatarFormValidator;
 
   editFormValidator.enableValidation();
   addCardFormValidator.enableValidation();
+  avatarFormValidator.enableValidation();
 
   // Setup popup event listeners
   popupWithImage.setEventListeners();
   popupWithEditForm.setEventListeners();
   popupWithAddCardForm.setEventListeners();
+  popupWithAvatarForm.setEventListeners();
   popupWithConfirmDelete.setEventListeners();
 
   // Setup button listeners
@@ -175,6 +207,11 @@ const placesList = document.querySelector(selectors.placesList);
     });
     popupWithEditForm.open();
     editFormValidator.resetValidation();
+  });
+
+  userEditAvatarButton.addEventListener("click", () => {
+    popupWithAvatarForm.open();
+    avatarFormValidator.resetValidationIfEmpty();
   });
 
 

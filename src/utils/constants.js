@@ -5,18 +5,22 @@ export const selectors = {
   // Forms
   editForm: ".popup_edit-user .popup__form",
   addCardForm: ".popup_add-card .popup__form",
+  avatarForm: ".popup_edit-avatar .popup__form",
 
   // Popups
   popupImage: ".popup_image",
   popupEditUser: ".popup_edit-user",
   popupAddCard: ".popup_add-card",
   popupConfirmDelete: ".popup_confirm-delete",
+  popupEditAvatar: ".popup_edit-avatar",
 
   // User Info
   userName: ".user-info__name",
   userJob: ".user-info__job",
+  userAvatar: ".user-info__photo",
   userEditButton: ".user-info__edit-icon",
   userAddPlaceButton: ".user-info__place-button",
+  userEditAvatarButton: ".user-info__edit-avatar",
 
   // Lists
   placesList: ".places-list",

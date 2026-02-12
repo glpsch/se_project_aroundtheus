@@ -1,4 +1,5 @@
 .user-info__photo {
+ 
   width: 120px;
   height: 120px;
   min-width: 120px;
@@ -14,6 +15,6 @@
   }
 }
 
-.user-info__photo:hover {
+/* .user-info__photo:hover {
   opacity: 80%;
-}
+} */
