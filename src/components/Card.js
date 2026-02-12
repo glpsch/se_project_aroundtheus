@@ -10,7 +10,7 @@ export default class Card {
     this._handleImageClick = handleImageClick;
     this._handleDelete = handleDelete;
     this._api = api;
-    
+
     this.isLiked = Boolean(data.isLiked);
     this._element = null;
   }
@@ -56,9 +56,7 @@ export default class Card {
   }
 
   deleteCard(api) {
-    return api
-      .deleteCard(this._id)
-      .then(() => this.getElement().remove());
+    return api.deleteCard(this._id).then(() => this.getElement().remove());
   }
 
   _onDeleteClick() {

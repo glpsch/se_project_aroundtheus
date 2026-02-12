@@ -68,7 +68,6 @@ export default class PopupWithForm extends Popup {
   renderLoading(isLoading) {
     if (isLoading) {
       this._submit.textContent = "Saving...";
-       
     } else {
       this._submit.textContent = "Save";
     }

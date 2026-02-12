@@ -11,6 +11,7 @@ This is a front-end study project that implements an interactive photo gallery w
 - Smooth animations for opening all modals
 - Fully responsive layout without horizontal scrolling
 - All forms have validation
+- Backend integration — cards, likes and user information are stored on the server
 
 ## 🛠️ Technologies & Techniques
 
@@ -39,10 +40,5 @@ This is a front-end study project that implements an interactive photo gallery w
 ### Form Validation
 
 ![Form Validation](https://i.gyazo.com/19e9139c1be38edd5dc2e1c63f260c85.png)
-
-## Limitations
-
-- All data (cards, likes) is stored in memory and reset on page refresh
-- No backend integration — front-end functionality only
 
 [View the project on GitHub Pages](https://glpsch.github.io/se_project_aroundtheus/)

@@ -31,7 +31,7 @@ const placesList = document.querySelector(selectors.placesList);
   const handleImageClick = (card) => {
     popupWithImage.open(card.name, card.link);
   };
-  
+
   // Remember which card to delete
 
   let cardToDelete = null;
@@ -109,7 +109,7 @@ const placesList = document.querySelector(selectors.placesList);
         popup.close();
       })
       .catch(() => {})
-      .finally(() => {        
+      .finally(() => {
         popup.renderLoading(false);
       });
   };
@@ -131,12 +131,11 @@ const placesList = document.querySelector(selectors.placesList);
       })
       .catch(() => {})
       .finally(() => {
-        popup.renderLoading(false);                
+        popup.renderLoading(false);
       });
   };
 
   const handleNewCard = (inputValues, popup) => {
-    
     const cardData = {
       name: inputValues.title,
       link: inputValues.link,
@@ -225,6 +224,4 @@ const placesList = document.querySelector(selectors.placesList);
     popupWithAvatarForm.open();
     avatarFormValidator.resetValidationIfEmpty();
   });
-
-
 })();

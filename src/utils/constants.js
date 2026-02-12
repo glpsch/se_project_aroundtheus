@@ -62,14 +62,14 @@ export const popupConfig = {
   imageDescription: ".popup__image-description",
 
   openedClass: "popup_is-opened",
-}
+};
 
-  // API
+// API
 
-  export const apiConfig = {
-    baseUrl: "https://around-api.en.tripleten-services.com/v1",
-    headers: {
-      authorization: "5c01f697-815f-4c7b-b7c4-42ef59bfe205",
-      "Content-Type": "application/json"
-    }
-  };
+export const apiConfig = {
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "5c01f697-815f-4c7b-b7c4-42ef59bfe205",
+    "Content-Type": "application/json",
+  },
+};

@@ -1,17 +1,16 @@
 .user-info__edit-avatar {
-    margin: 47px;
-    width: 26px;
-    height: 26px;
-    align-self: center;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: white;
+  margin: 47px;
+  width: 26px;
+  height: 26px;
+  align-self: center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: white;
+}
+
+@media screen and (max-width: 1000px) {
+  .user-info__edit-avatar {
+    margin: 24px auto;
   }
-  
-  @media screen and (max-width: 1000px) {
-    .user-info__edit-avatar {
-      margin: 24px auto;
-    }
-  }
-  
+}

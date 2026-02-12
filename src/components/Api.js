@@ -23,7 +23,6 @@ export default class Api {
         return Promise.reject(err);
       });
   }
- 
 
   // User
 
@@ -45,13 +44,11 @@ export default class Api {
     });
   }
 
-  // Cards 
+  // Cards
 
   getInitialCards() {
     return this._request("/cards");
   }
-
-
 
   createCard({ name, link }) {
     return this._request("/cards", {
@@ -71,6 +68,4 @@ export default class Api {
       method: shouldLike ? "PUT" : "DELETE",
     });
   }
-
-
 }
