@@ -55,6 +55,7 @@ export const popupConfig = {
   closeButton: ".popup__close",
   form: ".popup__form",
   input: ".popup__input",
+  submit: ".popup__button",
 
   image: ".popup__image",
   imageImg: ".popup__image img",

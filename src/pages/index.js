@@ -94,6 +94,7 @@ const placesList = document.querySelector(selectors.placesList);
 
   // Form handling functions
   const handleProfileEdit = (inputValues, popup) => {
+    popup.renderLoading(true);
     api
       .updateUserInfo({
         name: inputValues.name,
@@ -107,10 +108,14 @@ const placesList = document.querySelector(selectors.placesList);
         });
         popup.close();
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => {        
+        popup.renderLoading(false);
+      });
   };
 
   const handleAvatarEdit = (inputValues, popup) => {
+    popup.renderLoading(true);
     api
       .updateAvatar({
         avatar: inputValues.link,
@@ -124,15 +129,19 @@ const placesList = document.querySelector(selectors.placesList);
         popup.resetForm();
         popup.close();
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => {
+        popup.renderLoading(false);                
+      });
   };
 
   const handleNewCard = (inputValues, popup) => {
+    
     const cardData = {
       name: inputValues.title,
       link: inputValues.link,
     };
-
+    popup.renderLoading(true);
     api
       .createCard(cardData)
       .then((newCard) => {
@@ -140,7 +149,10 @@ const placesList = document.querySelector(selectors.placesList);
         popup.resetForm();
         popup.close();
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => {
+        popup.renderLoading(false);
+      });
   };
 
   // Create form popup instances
