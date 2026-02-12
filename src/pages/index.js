@@ -1,43 +1,64 @@
 "use strict";
 
-import { initialCards } from "../utils/initialCards.js";
-import { validationConfig, selectors } from "../utils/constants.js";
+import { validationConfig, selectors, apiConfig } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 import "./index.css";
 
 // DOM Elements
 const cardTemplate = document.querySelector(selectors.cardTemplate);
 const editForm = document.querySelector(selectors.editForm);
 const addCardForm = document.querySelector(selectors.addCardForm);
+const avatarForm = document.querySelector(selectors.avatarForm);
 const userEditButton = document.querySelector(selectors.userEditButton);
 const userAddPlaceButton = document.querySelector(selectors.userAddPlaceButton);
+const userEditAvatarButton = document.querySelector(
+  selectors.userEditAvatarButton
+);
 const placesList = document.querySelector(selectors.placesList);
 
 // Initialize everything
 (function () {
   const popupWithImage = new PopupWithImage(selectors.popupImage);
 
+  const api = new Api(apiConfig);
+
   const handleImageClick = (card) => {
     popupWithImage.open(card.name, card.link);
   };
 
+  // Remember which card to delete
+
+  let cardToDelete = null;
+
+  const handleDeleteRequest = (card) => {
+    cardToDelete = card;
+    popupWithConfirmDelete.open();
+  };
+
   function createCard(cardData) {
-    const card = new Card(cardData, cardTemplate, handleImageClick);
+    const card = new Card(
+      cardData,
+      cardTemplate,
+      handleImageClick,
+      handleDeleteRequest,
+      api
+    );
     return card.getElement();
   }
 
   // Create Section with cards
   const cardSection = new Section(
     {
-      items: initialCards,
+      items: [],
       renderer: (cardData) => {
-        const card = createCard(cardData);
-        cardSection.addItem(card);
+        const cardElement = createCard(cardData);
+        cardSection.addItem(cardElement);
       },
     },
     placesList
@@ -46,23 +67,72 @@ const placesList = document.querySelector(selectors.placesList);
   const userInfo = new UserInfo({
     nameSelector: selectors.userName,
     jobSelector: selectors.userJob,
+    avatarSelector: selectors.userAvatar,
   });
 
   function addCard(cardData) {
-    const card = createCard(cardData);
-    cardSection.prependItem(card.getElement());
+    const cardElement = createCard(cardData);
+    cardSection.prependItem(cardElement);
   }
 
-  // Render initial cards
-  cardSection.renderItems();
+  // Load initial user info and cards from the server
+  Promise.all([api.getUserInfo(), api.getInitialCards()])
+    .then(([userData, cards]) => {
+      //console.log(cards);
+      userInfo.setUserInfo({
+        name: userData.name,
+        job: userData.about,
+        avatar: userData.avatar,
+      });
+
+      cards.forEach((cardData) => {
+        const cardElement = createCard(cardData);
+        cardSection.addItem(cardElement);
+      });
+    })
+    .catch(() => {});
 
   // Form handling functions
   const handleProfileEdit = (inputValues, popup) => {
-    userInfo.setUserInfo({
-      name: inputValues.name,
-      job: inputValues.info,
-    });
-    popup.close();
+    popup.renderLoading(true);
+    api
+      .updateUserInfo({
+        name: inputValues.name,
+        about: inputValues.info,
+      })
+      .then((updatedUser) => {
+        userInfo.setUserInfo({
+          name: updatedUser.name,
+          job: updatedUser.about,
+          avatar: updatedUser.avatar,
+        });
+        popup.close();
+      })
+      .catch(() => {})
+      .finally(() => {
+        popup.renderLoading(false);
+      });
+  };
+
+  const handleAvatarEdit = (inputValues, popup) => {
+    popup.renderLoading(true);
+    api
+      .updateAvatar({
+        avatar: inputValues.link,
+      })
+      .then((updatedUser) => {
+        userInfo.setUserInfo({
+          name: updatedUser.name,
+          job: updatedUser.about,
+          avatar: updatedUser.avatar,
+        });
+        popup.resetForm();
+        popup.close();
+      })
+      .catch(() => {})
+      .finally(() => {
+        popup.renderLoading(false);
+      });
   };
 
   const handleNewCard = (inputValues, popup) => {
@@ -70,9 +140,18 @@ const placesList = document.querySelector(selectors.placesList);
       name: inputValues.title,
       link: inputValues.link,
     };
-    addCard(cardData);
-    popup.resetForm();
-    popup.close();
+    popup.renderLoading(true);
+    api
+      .createCard(cardData)
+      .then((newCard) => {
+        addCard(newCard);
+        popup.resetForm();
+        popup.close();
+      })
+      .catch(() => {})
+      .finally(() => {
+        popup.renderLoading(false);
+      });
   };
 
   // Create form popup instances
@@ -84,21 +163,46 @@ const placesList = document.querySelector(selectors.placesList);
     selectors.popupAddCard,
     handleNewCard
   );
+  const popupWithAvatarForm = new PopupWithForm(
+    selectors.popupEditAvatar,
+    handleAvatarEdit
+  );
+  const popupWithConfirmDelete = new PopupWithForm(
+    selectors.popupConfirmDelete,
+    (_inputValues, popup) => {
+      if (!cardToDelete) {
+        popup.close();
+        return;
+      }
+      cardToDelete
+        .deleteCard(api)
+        .then(() => {
+          popup.close();
+          cardToDelete = null;
+        })
+        .catch(() => {});
+    }
+  );
 
   // Handle validation
   const editFormValidator = new FormValidator(validationConfig, editForm);
   const addCardFormValidator = new FormValidator(validationConfig, addCardForm);
+  const avatarFormValidator = new FormValidator(validationConfig, avatarForm);
 
   editForm._formValidator = editFormValidator;
   addCardForm._formValidator = addCardFormValidator;
+  avatarForm._formValidator = avatarFormValidator;
 
   editFormValidator.enableValidation();
   addCardFormValidator.enableValidation();
+  avatarFormValidator.enableValidation();
 
   // Setup popup event listeners
   popupWithImage.setEventListeners();
   popupWithEditForm.setEventListeners();
   popupWithAddCardForm.setEventListeners();
+  popupWithAvatarForm.setEventListeners();
+  popupWithConfirmDelete.setEventListeners();
 
   // Setup button listeners
   userAddPlaceButton.addEventListener("click", () => {
@@ -114,5 +218,10 @@ const placesList = document.querySelector(selectors.placesList);
     });
     popupWithEditForm.open();
     editFormValidator.resetValidation();
+  });
+
+  userEditAvatarButton.addEventListener("click", () => {
+    popupWithAvatarForm.open();
+    avatarFormValidator.resetValidationIfEmpty();
   });
 })();

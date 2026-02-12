@@ -10,6 +10,7 @@ export default class PopupWithForm extends Popup {
     this._form = this._popup.querySelector(popupConfig.form);
     this._inputs = this._form.querySelectorAll(popupConfig.input);
     this._formData = {};
+    this._submit = this._popup.querySelector(popupConfig.submit);
   }
 
   _getInputValues() {
@@ -59,6 +60,16 @@ export default class PopupWithForm extends Popup {
     this._formData = {};
     if (this._form._formValidator) {
       this._form._formValidator.resetValidation();
+    }
+  }
+
+  // On-load submit button behavior
+
+  renderLoading(isLoading) {
+    if (isLoading) {
+      this._submit.textContent = "Saving...";
+    } else {
+      this._submit.textContent = "Save";
     }
   }
 }

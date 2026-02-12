@@ -2,12 +2,16 @@
 import { cardConfig } from "../utils/constants.js";
 
 export default class Card {
-  constructor(data, cardSelector, handleImageClick) {
+  constructor(data, cardSelector, handleImageClick, handleDelete, api) {
     this.name = data.name;
     this.link = data.link;
+    this._id = data._id ?? data.id;
     this._template = cardSelector;
     this._handleImageClick = handleImageClick;
-    this.isLiked = false;
+    this._handleDelete = handleDelete;
+    this._api = api;
+
+    this.isLiked = Boolean(data.isLiked);
     this._element = null;
   }
 
@@ -26,6 +30,9 @@ export default class Card {
 
     this._cardImageElement.style.backgroundImage = `url(${this.link})`;
     this._cardNameElement.textContent = this.name;
+    if (this.isLiked) {
+      this._likeButton.classList.add(cardConfig.likedClass);
+    }
     this._setEventListeners();
     return this._element;
   }
@@ -38,12 +45,26 @@ export default class Card {
   }
 
   _handleLike() {
-    this.isLiked = !this.isLiked;
-    this._likeButton.classList.toggle(cardConfig.likedClass);
+    const likeStatus = !this.isLiked;
+    this._api
+      .changeLikeStatus(this._id, likeStatus)
+      .then(() => {
+        this.isLiked = likeStatus;
+        this._likeButton.classList.toggle(cardConfig.likedClass);
+      })
+      .catch(() => {});
   }
 
-  _handleDelete() {
-    this._element.remove();
+  deleteCard(api) {
+    return api.deleteCard(this._id).then(() => this.getElement().remove());
+  }
+
+  _onDeleteClick() {
+    if (this._handleDelete) {
+      this._handleDelete(this);
+    } else {
+      this._element.remove();
+    }
   }
 
   _setEventListeners() {
@@ -58,7 +79,7 @@ export default class Card {
 
     this._deleteButton.addEventListener("click", (e) => {
       e.stopPropagation();
-      this._handleDelete();
+      this._onDeleteClick();
     });
   }
 }
